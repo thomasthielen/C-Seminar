@@ -1,1 +1,2 @@
-# C-Seminar
+# C/C++ Seminar
+
