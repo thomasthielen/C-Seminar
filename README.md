@@ -58,4 +58,3 @@ Das `return 0` wird bei der main-Funktion automatisch ergänzt
 ## Eingabe & Ausgabe
 
 _Note: Dieser Abschnitt wird später wahrscheinlich noch erweitert_
-
