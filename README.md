@@ -1,5 +1,11 @@
 # C/C++ Seminar
 
+Neben den Basics des Programmaufbaus und der Kompilierung möchte ich in diesem Guide primär Standardlösungen für übliche Problemstellungen sammeln.
+
+Diese entnehme ich den diversen Tutorien, Projekten und Altklausuren unseres Seminars.
+
+Zusätzlich werde ich auch auf übliche Fehler oder Error Messages (und wie man diese beheben kann) eingehen.
+
 ## Basics
 
 ### Kompilierung
@@ -48,3 +54,8 @@ int main ()
 Ohne eine `int main()` Funktion beschwert sich der Linker
 
 Das `return 0` wird bei der main-Funktion automatisch ergänzt
+
+## Eingabe & Ausgabe
+
+_Note: Dieser Abschnitt wird später wahrscheinlich noch erweitert_
+
