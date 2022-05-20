@@ -55,17 +55,19 @@ Ohne eine `int main()` Funktion beschwert sich der Linker
 
 Das `return 0` wird bei der main-Funktion automatisch ergänzt
 
-## Eingabe & Ausgabe
+## Woche 1
+
+### Eingabe & Ausgabe
 
 [Dokumentation zu printf ()](https://www.cplusplus.com/reference/cstdio/printf/)
 
 [Dokumentation zu scanf ()](https://www.cplusplus.com/reference/cstdio/scanf/)
 
-## Pointer
+### Pointer
 
 [Aus dem exzellenten Guide auf cplusplus.com](https://www.cplusplus.com/doc/tutorial/pointers/)
 
-### Pointer und Referenzen
+#### Pointer und Referenzen
 
 & is the address-of operator, and can be read simply as "address of"
 
@@ -86,7 +88,7 @@ Das `return 0` wird bei der main-Funktion automatisch ergänzt
   // secondvalue = 20
 ```
 
-### Pointer und Arrays
+#### Pointer und Arrays
 
 Jedes Array entspricht einem Pointer des entsprechenden Datentyps auf das erste Element.
 
