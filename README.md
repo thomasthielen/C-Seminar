@@ -156,7 +156,7 @@ D.h. dass `&numbers[0] = 74` und danach `&numbers[1] = 75`.
 
 Deshalb können wir den Pointer um 1 erhöhen um auf das nächste Element des Arrays zugreifen zu können.
 
-#### const & constexpr
+### const & constexpr
 
 - const: der Wert verändert sich nicht (mehr)
 - constexpr: der Wert verändert sich nicht (mehr) UND der Compiler kann den Wert der Variable nachvollziehen
@@ -166,7 +166,33 @@ Syntax:
 
 ```c++
 int i = 0;
-costexpr int j = 4;
+constexpr int j = 4;
 constexpr int k = j + 2;
 const int l = i + j;      // der Compiler kann nicht feststellen, ob i konstant bleibt
+```
+
+Bei Pointern kann const zweifach angewendet werden: Für den Wert auf den der Pointer zeigt und/oder den Pointer selbst:
+
+1. Der Wert des Pointers:
+
+```c++
+int i = 0;
+const int j = 2;
+const int *p = &i;
+*p = 3;       // illegal!
+int *p2 = &j; // illegal!
+```
+
+  - Man bemerke: Die Variable selbst muss nicht const sein, der Pointer stellt einfach nur sicher dass durch _ihn_ der Wert der Variable nicht verändert wird.
+
+  - Umgekehrt **muss** für eine const Variable der Pointer ebenfalls const sein!
+
+2. Der Pointer selbst:
+
+```c++
+int i = 0;
+int j = 3;
+int *const p = &i;
+int *p2 = &j;
+p = p2;     // illegal!
 ```
