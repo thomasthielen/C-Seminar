@@ -69,4 +69,4 @@ Das `return 0` wird bei der main-Funktion automatisch ergänzt
 
 & is the address-of operator, and can be read simply as "address of"
 
-* is the dereference operator, and can be read as "value pointed to by"
+\*\ is the dereference operator, and can be read as "value pointed to by"
