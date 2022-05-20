@@ -114,14 +114,14 @@ int number = 1;
 
 // 3 Möglichkeiten für Pointer:
 int *p = &number;
-printf ("p=%p    \n", p);     // Adresse von number
-printf ("&p=%p \n", &p);      // Adresse von p
-printf ("*p=%d  \n", *p);     // Wert von number
+printf ("p=%p   ", p);     // Adresse von number
+printf ("&p=%p  ", &p);      // Adresse von p
+printf ("*p=%d  ", *p);     // Wert von number
 
 // 2 Möglichkeiten für Referenzen:
 int &r = number;
-printf ("r=%d    \n", r);     // Wert von number
-printf ("&r=%d \n", &r);      // Adresse von number
+printf ("r=%d   ", r);     // Wert von number
+printf ("&r=%d  ", &r);      // Adresse von number
 ```
 
 #### Pointer und Arrays
