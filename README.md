@@ -61,11 +61,11 @@ Das `return 0` wird bei der main-Funktion automatisch ergänzt
 
 [Dokumentation zu scanf ()](https://www.cplusplus.com/reference/cstdio/scanf/)
 
-## Pointer (& und \*\)
+## Pointer
 
-[Exzellenter Guide auf cplusplus.com](https://www.cplusplus.com/doc/tutorial/pointers/)
+[Aus dem exzellenten Guide auf cplusplus.com](https://www.cplusplus.com/doc/tutorial/pointers/)
 
-### Wichtige Auszüge
+### Pointer und Referenzen
 
 & is the address-of operator, and can be read simply as "address of"
 
@@ -84,3 +84,36 @@ Das `return 0` wird bei der main-Funktion automatisch ergänzt
   
   // firstvalue = 10
   // secondvalue = 20
+```
+
+### Pointer und Arrays
+
+Jedes Array entspricht einem Pointer des entsprechenden Datentyps auf das erste Element.
+
+Aus dem folgenden Code lässt sich weiteres schließen:
+
+```c++
+// more pointers
+#include <iostream>
+using namespace std;
+
+int main ()
+{
+  int numbers[5];
+  int * p;
+  p = numbers;  *p = 10;      // p wird als Poiner auf das erste Element in numbers[] gesetzt
+  p++;  *p = 20;              // 
+  p = &numbers[2];  *p = 30;
+  p = numbers + 3;  *p = 40;
+  p = numbers;  *(p+4) = 50;
+  for (int n=0; n<5; n++)
+    cout << numbers[n] << ", ";
+  return 0;
+}
+```
+
+Wichtig: Ein Array selbst besitzt nur Pointer auf Datenbereiche mit den jeweiligen Datentypen.
+
+D.h. dass `&numbers[0] = 74` und danach `&numbers[1] = 75`.
+
+Deshalb können wir den Pointer um 1 erhöhen um auf das nächste Element des Arrays zugreifen zu können.
