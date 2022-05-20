@@ -155,3 +155,18 @@ Wichtig: Ein Array selbst besitzt nur Pointer auf Datenbereiche mit den jeweilig
 D.h. dass `&numbers[0] = 74` und danach `&numbers[1] = 75`.
 
 Deshalb können wir den Pointer um 1 erhöhen um auf das nächste Element des Arrays zugreifen zu können.
+
+#### const & constexpr
+
+- const: der Wert verändert sich nicht (mehr)
+- constexpr: der Wert verändert sich nicht (mehr) UND der Compiler kann den Wert der Variable nachvollziehen
+  - z.B. weil dieser nur mit Konstanten oder const Variablen initialisiert wird
+
+Syntax:
+
+```c++
+int i = 0;
+costexpr int j = 4;
+constexpr int k = j + 2;
+const int l = i + j;      // der Compiler kann nicht feststellen, ob i konstant bleibt
+```
