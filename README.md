@@ -64,3 +64,9 @@ Das `return 0` wird bei der main-Funktion automatisch ergänzt
 ## Pointer (& und \*\)
 
 [Exzellenter Guide auf cplusplus.com](https://www.cplusplus.com/doc/tutorial/pointers/)
+
+### Wichtige Auszüge
+
+& is the address-of operator, and can be read simply as "address of"
+
+* is the dereference operator, and can be read as "value pointed to by"
