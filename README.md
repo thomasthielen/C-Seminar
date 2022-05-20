@@ -99,6 +99,31 @@ scanf ("%d.%d.%d", &day, &month, &year);
   // secondvalue = 20
 ```
 
+Referenzen auf Pointer schreiben sich wie folgt:
+
+```c++
+int i = 0;
+int *p = &i;
+int *&rp = p;
+```
+
+Wir haben folgende Möglichkeiten Pointer & Referenzen auszugeben:
+
+```c++
+int number = 1;
+
+// 3 Möglichkeiten für Pointer:
+int *p = &number;
+printf ("p=%p    \n", p);     // Adresse von number
+printf ("&p=%p \n", &p);      // Adresse von p
+printf ("*p=%d  \n", *p);     // Wert von number
+
+// 2 Möglichkeiten für Referenzen:
+int &r = number;
+printf ("r=%d    \n", r);     // Wert von number
+printf ("&r=%d \n", &r);      // Adresse von number
+```
+
 #### Pointer und Arrays
 
 Jedes Array entspricht einem Pointer des entsprechenden Datentyps auf das erste Element.
