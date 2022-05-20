@@ -70,3 +70,11 @@ Das `return 0` wird bei der main-Funktion automatisch ergänzt
 & is the address-of operator, and can be read simply as "address of"
 
 \* is the dereference operator, and can be read as "value pointed to by"
+
+```c++
+  int firstvalue, secondvalue;
+  int * mypointer;
+
+  mypointer = &firstvalue;  // mypointer = address of firstvalue
+  *mypointer = 10;          // value pointed to by mypointer = 10
+  secondvalue = *mypointer; // secondvalue = value pointed to by mypointer
