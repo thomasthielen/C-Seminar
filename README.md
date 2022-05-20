@@ -57,6 +57,10 @@ Das `return 0` wird bei der main-Funktion automatisch ergänzt
 
 ## Eingabe & Ausgabe
 
-[printf ()](https://www.cplusplus.com/reference/cstdio/printf/)
+[Dokumentation zu printf ()](https://www.cplusplus.com/reference/cstdio/printf/)
 
-[scanf ()](https://www.cplusplus.com/reference/cstdio/scanf/)
+[Dokumentation zu scanf ()](https://www.cplusplus.com/reference/cstdio/scanf/)
+
+## Pointer (& und \*\)
+
+[Exzellenter Guide auf cplusplus.com](https://www.cplusplus.com/doc/tutorial/pointers/)
