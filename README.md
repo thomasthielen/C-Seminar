@@ -61,7 +61,17 @@ Das `return 0` wird bei der main-Funktion automatisch ergänzt
 
 [Dokumentation zu printf ()](https://www.cplusplus.com/reference/cstdio/printf/)
 
+Allgemein:
+
+```c++
+printf ("numbers: %.2f %d %s \n", 3.1416, 3, '3.1416');  // numbers: 3.14 3 3.1416
+```
+
 [Dokumentation zu scanf ()](https://www.cplusplus.com/reference/cstdio/scanf/)
+
+```c++
+scanf ("%d.%d.%d", &day, &month, &year)    // Wenn wir 13.09:1999 eingeben: day = 13, month = 9, year bleibt unverändert (fehlerhafte Eingabe)
+```
 
 ### Pointer
 
