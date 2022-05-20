@@ -101,11 +101,11 @@ int main ()
 {
   int numbers[5];
   int * p;
-  p = numbers;  *p = 10;      // p wird als Poiner auf das erste Element in numbers[] gesetzt
-  p++;  *p = 20;              // 
-  p = &numbers[2];  *p = 30;
-  p = numbers + 3;  *p = 40;
-  p = numbers;  *(p+4) = 50;
+  p = numbers;  *p = 10;      // p wird als Poiner auf die Adresse des ersten Element in numbers[] gesetzt (numbers[0])
+  p++;  *p = 20;              // p wird um 1 erhöht und zeigt damit auf numbers[1]
+  p = &numbers[2];  *p = 30;  // p zeigt auf die Adresse von numbers[2]
+  p = numbers + 3;  *p = 40;  // p zeigt auf die Adresse von numbers[0] + ein offset von 3, was zu numbers[3] führt
+  p = numbers;  *(p+4) = 50;  // hier wird temporär und lokal über die Adresse von p+4 numbers[4] geändert
   for (int n=0; n<5; n++)
     cout << numbers[n] << ", ";
   return 0;
