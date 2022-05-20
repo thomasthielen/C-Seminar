@@ -72,9 +72,15 @@ Das `return 0` wird bei der main-Funktion automatisch ergänzt
 \* is the dereference operator, and can be read as "value pointed to by"
 
 ```c++
-  int firstvalue, secondvalue;
-  int * mypointer;
+  int firstvalue = 5, secondvalue = 15;
+  int * p1, * p2;
 
-  mypointer = &firstvalue;  // mypointer = address of firstvalue
-  *mypointer = 10;          // value pointed to by mypointer = 10
-  secondvalue = *mypointer; // secondvalue = value pointed to by mypointer
+  p1 = &firstvalue;  // p1 = address of firstvalue
+  p2 = &secondvalue; // p2 = address of secondvalue
+  *p1 = 10;          // value pointed to by p1 = 10
+  *p2 = *p1;         // value pointed to by p2 = value pointed to by p1
+  p1 = p2;           // p1 = p2 (value of pointer is copied)
+  *p1 = 20;          // value pointed to by p1 = 20
+  
+  // firstvalue = 10
+  // secondvalue = 20
