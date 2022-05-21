@@ -237,3 +237,41 @@ int main ()
 Dies ist aber redundant, da wir auch mit `d = 3;` auf die globale Variable zugreifen hätten können.
 
 Kommen in mehreren namespaces die wir mit `using` referenzieren, eine Variable mit dem gleichen Namen vor, so erhalten wir einen `error: reference to 'x' is ambiguous` Error.
+
+### Bitwise Operators
+
+| operator | logical equivalent |	description          |
+| -        | -                  | -                    |
+| & 	     | AND	              | Bitwise AND          |
+| \|	     | OR                 | Bitwise inclusive OR |
+| ^	       | XOR	              | Bitwise exclusive OR |
+| ~	       | NOT	              | Bit inversion        |
+| <<	     | SHL	              | Shift bits left      |
+| >>	     | SHR	              | Shift bits right     |
+
+Beispiele:
+
+```c++
+  unsigned char z = 0b10101010;   // diese Zuweisung erfolgt nach jedem Beispiel
+
+// bestimmte Bits setzen
+  z = z | 0b1;    // das letzte Bit setzen => 10101011
+  
+// bestimmte Bits löschen
+  z = z & ~0b010  // das zweitletzte Bit löschen => 10101000
+  
+// bestimmte Bits invertieren
+  z = z ^ 0b100;  // das drittletzte Bit invertieren => 10101110
+  
+// alle außer einem Bit setzen
+  z = z | ~0b1;   // alle außer dem letzten Bit werden gesetzt => 11111110
+  
+// alle außer einem Bit löschen
+  z = z & 0b10;   // alle außer dem vorletzten Bit werden gelöscht => 00000010
+  
+// alle außer einem Bit invertieren
+  z = z ^ ~0b100  // alle außer dem drittletzten Bit werden invertiert => 01010001
+  
+// Bits untereinander vertauschen
+  z = (z >> 1 & 0b10) | (z << 1 & 0b100) | (z & ~0b110);  // das vorletzte und drittletzte Bit werden vertauscht => 10101100
+```
