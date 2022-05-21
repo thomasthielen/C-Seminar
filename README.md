@@ -196,3 +196,44 @@ int *const p = &i;
 int *p2 = &j;
 p = p2;     // illegal!
 ```
+
+## Woche 2
+
+### namespaces
+
+[Tutorial](http://cplusplus.com/doc/tutorial/namespaces/)
+
+Syntax:
+
+```c++
+namespace ns1
+{
+  int i;
+  namespace ns2
+  {
+    int j;
+  }
+}
+
+int main ()
+{
+  using ns1::ns2;   // Wir nutzen dadurch erstmal NUR ns2
+  ns1::i = 0;
+  j = 3;
+}
+```
+
+Auf globale Variablen kann auch wie folgt zugegriffen werden:
+
+```c++
+int d;
+
+int main ()
+{
+  ::d = 3;
+}
+```
+
+Dies ist aber redundant, da wir auch mit `d = 3;` auf die globale Variable zugreifen hätten können.
+
+Kommen in mehreren namespaces die wir mit `using` referenzieren, eine Variable mit dem gleichen Namen vor, so erhalten wir einen `error: reference to 'x' is ambiguous` Error.
