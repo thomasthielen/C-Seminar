@@ -425,3 +425,23 @@ int main ()
   swap (a, b);
 }
 ```
+
+## Defaultwerte
+
+Fehlende Parameter im Funktionsaufruf werden durch einen Defaultwert ersetzt, der in Deklaration oder Definition der Funktion angegeben wird.
+
+Syntax:
+
+```c++
+int divide (int a, int b = 2)
+{
+  int r;
+  r = a / b;
+  return (r);
+}
+```
+
+Es gelten zusätzlich folgende Regeln:
+
+- ab dem **ersten** Defaultwert müssen alle folgenden Parameter Defaultwerte besitzen
+- beim Aufruf der Funktion darf ab dem **ersten** fehlenden Argument kein weiteres Argument übergeben werden
