@@ -304,3 +304,52 @@ Zur bytewise Ausgabe von Variablen aller Datentypen
   char z = 'a';
   cout << bitset<8> (z);  // gibt 'a' bytewise mit 8 Stellen aus (01100001)
 ```
+
+### Header
+
+In einer Header-Datei "a2.h" zu dem Programm "a2.cc" müssen Dinge deklariert oder aufgerufen werden, die in a2.cc selbst nicht deklariert/aufgerufen werden.
+
+`#include "a2.h"`
+
+Dazu können folgende Dinge gehören:
+
+- Funktionen, die vor ihrer Definition in a2.cc aufgerufen werden
+- `#include`-Anweisungen aus der Standardbibliothek die z.B. für std::cout benötigt werden (`#include <iostream>`)
+- `typedef`-Deklarationen für einen Alias eines Datentyps, der in a2.cc genutzt aber nicht deklariert wird
+- globale Variablen die in a2.cc genutzt werden, aber dort nicht deklariert werden
+
+```c++
+  #include <iostream>
+
+  typedef unsigned int uint;
+
+  uint y;
+
+  uint f1 (uint x);
+  uint f2 (uint x);
+  double f3 (double x, double y);
+```
+
+Falls ein Header (absichtlich oder unabsichtlich) mehrfach über `#include` eingebunden wird können Fehler (ambiguity) auftreten.
+
+Eine solche Mehrfacheinbindung kann natürlich offensichtlich passieren...
+
+```c++
+#include "a2.h"
+#include "a2.h"
+```
+
+...oder durch `#include`-Anweisungen in einem *Header*, vor allem wenn dadurch die Vererbung unübersichtlich wird.
+
+In beiden Fällen müssen wir bedingte Kompilierung nutzen:
+
+```c++
+#ifndef A2_H
+#define A2_H
+
+[...]
+
+#endif
+```
+
+*Conditional inclusions* werden auch sehr gut in diesem [Tutorial](https://cplusplus.com/doc/tutorial/preprocessor/#conditional_inclusions) erklärt.
