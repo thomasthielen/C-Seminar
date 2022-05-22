@@ -289,3 +289,12 @@ Beispiele:
   bool fahrenheitToCelcius = symbol == 'F' || symbol == 'f';
   bool celciusToFahrenheit = symbol == 'C' || symbol == 'c';
 ```
+
+### bitset zur Ausgabe von Bitcode
+
+Zur bytewise Ausgabe von Variablen aller Datentypen
+
+```c++
+  char z = 'a';
+  cout << bitset<8> (z);  // gibt 'a' bytewise mit 8 Stellen aus (01100001)
+```
