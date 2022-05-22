@@ -292,6 +292,8 @@ Beispiele:
 
 ### bitset zur Ausgabe von Bitcode
 
+(aus P2/3)
+
 Zur bytewise Ausgabe von Variablen aller Datentypen
 
 ```c++
