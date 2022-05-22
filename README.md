@@ -330,6 +330,8 @@ Dazu können folgende Dinge gehören:
   double f3 (double x, double y);
 ```
 
+#### Bedingte Kompilierung
+
 Falls ein Header (absichtlich oder unabsichtlich) mehrfach über `#include` eingebunden wird können Fehler (ambiguity) auftreten.
 
 Eine solche Mehrfacheinbindung kann natürlich offensichtlich passieren...
@@ -353,3 +355,21 @@ In beiden Fällen müssen wir bedingte Kompilierung nutzen:
 ```
 
 *Conditional inclusions* werden auch sehr gut in diesem [Tutorial](https://cplusplus.com/doc/tutorial/preprocessor/#conditional_inclusions) erklärt.
+
+#### Flags/Makros bei Kompilierung setzen
+
+Um z.B. Debugging zu betreiben können wir auch in der Konsole Flags setzen, z.B. setzt `g++ -DDEBUG` das Makro "DEBUG"
+
+Nun können wir im Programm selbst folgendes schreiben:
+
+```c++
+#ifdef DEBUG
+  if (y == 0)
+  {
+    std::cout << "Fehler: Division durch 0\n";
+    exit (0);   // beendet das Programm
+  }
+#endif
+```
+
+
