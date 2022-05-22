@@ -443,5 +443,5 @@ int divide (int a, int b = 2)
 
 Es gelten zusätzlich folgende Regeln:
 
-- ab dem **ersten** Defaultwert müssen alle folgenden Parameter Defaultwerte besitzen
-- beim Aufruf der Funktion darf ab dem **ersten** fehlenden Argument kein weiteres Argument übergeben werden
+- ab dem **ersten Defaultwert** müssen alle folgenden Parameter Defaultwerte besitzen
+- beim Aufruf der Funktion darf ab dem **ersten fehlenden Argument** kein weiteres Argument übergeben werden
