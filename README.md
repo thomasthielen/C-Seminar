@@ -6,9 +6,9 @@ Diese entnehme ich den diversen Tutorien, Projekten und Altklausuren unseres Sem
 
 Zusätzlich werde ich auch auf übliche Fehler oder Error Messages (und wie man diese beheben kann) eingehen.
 
-## Basics
+# Basics
 
-### Kompilierung
+## Kompilierung
 
 Terminal in entsprechendem Folder öffnen
 
@@ -28,7 +28,7 @@ Einige Optionen:
 - `-O[0|1|2|3|s]` z.B. _-O3_, optimiert den Code in versch. Granularität 
 - `-l lib` z.B. _-l m_, fügt dem Linker eine zusätzliche Bibliothek hinzu (hier: Math-Library)
 
-### Programme / Header
+## Programme / Header
 
 Header in C: (man beachte das .h)
 
@@ -55,9 +55,9 @@ Ohne eine `int main()` Funktion beschwert sich der Linker
 
 Das `return 0` wird bei der main-Funktion automatisch ergänzt
 
-## Woche 1
+# Woche 1
 
-### Eingabe & Ausgabe
+## Eingabe & Ausgabe
 
 [Dokumentation zu printf ()](https://www.cplusplus.com/reference/cstdio/printf/)
 
@@ -74,11 +74,11 @@ scanf ("%d.%d.%d", &day, &month, &year);
 // Wenn wir 13.09:1999 eingeben: day = 13, month = 9, year bleibt unverändert (fehlerhafte Eingabe mit :)
 ```
 
-### Pointer
+## Pointer
 
 [Aus dem exzellenten Guide auf cplusplus.com](https://www.cplusplus.com/doc/tutorial/pointers/)
 
-#### Pointer und Referenzen
+### Pointer und Referenzen
 
 & is the address-of operator, and can be read simply as "address of"
 
@@ -124,7 +124,7 @@ printf ("r=%d   ", r);    // Wert von number
 printf ("&r=%d  ", &r);   // Adresse von number
 ```
 
-#### Pointer und Arrays
+### Pointer und Arrays
 
 Jedes Array entspricht einem Pointer des entsprechenden Datentyps auf das erste Element.
 
@@ -156,7 +156,7 @@ D.h. dass `&numbers[0] = 74` und danach `&numbers[1] = 75`.
 
 Deshalb können wir den Pointer um 1 erhöhen um auf das nächste Element des Arrays zugreifen zu können.
 
-### const & constexpr
+## const & constexpr
 
 - const: der Wert verändert sich nicht (mehr)
 - constexpr: der Wert verändert sich nicht (mehr) UND der Compiler kann den Wert der Variable nachvollziehen
@@ -197,9 +197,9 @@ int *p2 = &j;
 p = p2;     // illegal!
 ```
 
-## Woche 2
+# Woche 2
 
-### namespaces
+## namespaces
 
 [Tutorial](http://cplusplus.com/doc/tutorial/namespaces/)
 
@@ -238,7 +238,7 @@ Dies ist aber redundant, da wir auch mit `d = 3;` auf die globale Variable zugre
 
 Kommen in mehreren namespaces die wir mit `using` referenzieren, eine Variable mit dem gleichen Namen vor, so erhalten wir einen `error: reference to 'x' is ambiguous` Error.
 
-### Bitwise Operators
+## Bitwise Operators
 
 | operator | logical equivalent |	description          |
 | -        | -                  | -                    |
@@ -280,7 +280,7 @@ Beispiele:
   z = (z >> k) | (z << bits >> k);
 ```
 
-### Simple Eingaben mit cin
+## Simple Eingaben mit cin
 
 (aus P2/2)
 
@@ -294,7 +294,7 @@ Beispiele:
   bool celciusToFahrenheit = symbol == 'C' || symbol == 'c';
 ```
 
-### bitset zur Ausgabe von Bitcode
+## bitset zur Ausgabe von Bitcode
 
 (aus P2/3)
 
@@ -305,7 +305,7 @@ Zur bytewise Ausgabe von Variablen aller Datentypen
   cout << bitset<8> (z);  // gibt 'a' bytewise mit 8 Stellen aus (01100001)
 ```
 
-### Header
+## Header
 
 In einer Header-Datei "a2.h" zu dem Programm "a2.cc" müssen Dinge deklariert oder aufgerufen werden, die in a2.cc selbst nicht deklariert/aufgerufen werden.
 
@@ -330,7 +330,7 @@ Dazu können folgende Dinge gehören:
   double f3 (double x, double y);
 ```
 
-#### Bedingte Kompilierung
+### Bedingte Kompilierung
 
 Falls ein Header (absichtlich oder unabsichtlich) mehrfach über `#include` eingebunden wird können Fehler (ambiguity) auftreten.
 
@@ -356,7 +356,7 @@ In beiden Fällen müssen wir bedingte Kompilierung nutzen:
 
 *Conditional inclusions* werden auch sehr gut in diesem [Tutorial](https://cplusplus.com/doc/tutorial/preprocessor/#conditional_inclusions) erklärt.
 
-#### Flags/Makros bei Kompilierung setzen
+### Flags/Makros bei Kompilierung setzen
 
 Um z.B. Debugging zu betreiben können wir auch in der Konsole Flags setzen, z.B. setzt `g++ -DDEBUG` das Makro "DEBUG"
 
