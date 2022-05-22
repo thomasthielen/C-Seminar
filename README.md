@@ -275,3 +275,17 @@ Beispiele:
 // Bits untereinander vertauschen
   z = (z >> 1 & 0b10) | (z << 1 & 0b100) | (z & ~0b110);  // das vorletzte und drittletzte Bit werden vertauscht => 10101100
 ```
+
+### Simple Eingaben mit cin
+
+(aus P2/2)
+
+```c++
+  double temp;
+  char symbol;
+
+  cout << "Temperatur eingeben: ";
+  cin >> temp >> symbol;
+  bool fahrenheitToCelcius = symbol == 'F' || symbol == 'f';
+  bool celciusToFahrenheit = symbol == 'C' || symbol == 'c';
+```
