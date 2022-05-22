@@ -372,4 +372,54 @@ Nun können wir im Programm selbst folgendes schreiben:
 #endif
 ```
 
+## Call by Value vs. Call by Reference
 
+### Call by Value
+
+```c++
+int add (int x, int y)
+{
+  return x + y;
+}
+
+int main ()
+{
+  std::cout << add (3, 5) << "\n";
+}
+```
+
+### Call by Reference
+
+In C können wir Cally by Reference nur mit Pointern in den Parametern & den Adressen als Argumente realisieren:
+
+```c++
+void swap (int *px, int *py)
+{
+  int t = *px;
+  *px = *py;
+  *py = t;
+}
+
+int main ()
+{
+  int a = 1, b = 2;
+  swap (&a, &b);
+}
+```
+
+In C++ können wir stattdessen einfach Referenzen in die Parameter schreiben:
+
+```c++
+void swap (int &x, int &y)
+{
+  int t = x;
+  x = y;
+  y = t;
+}
+
+int main ()
+{
+  int a = 1, b = 2;
+  swap (a, b);
+}
+```
