@@ -305,6 +305,8 @@ Zur bytewise Ausgabe von Variablen aller Datentypen
   cout << bitset<8> (z);  // gibt 'a' bytewise mit 8 Stellen aus (01100001)
 ```
 
+# Woche 3
+
 ## Header
 
 In einer Header-Datei "a2.h" zu dem Programm "a2.cc" müssen Dinge deklariert oder aufgerufen werden, die in a2.cc selbst nicht deklariert/aufgerufen werden.
