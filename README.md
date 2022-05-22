@@ -445,3 +445,45 @@ Es gelten zusätzlich folgende Regeln:
 
 - ab dem **ersten Defaultwert** müssen alle folgenden Parameter Defaultwerte besitzen
 - beim Aufruf der Funktion darf ab dem **ersten fehlenden Argument** kein weiteres Argument übergeben werden
+
+## Überladen von Funktionen
+
+Funktionen mit gleichem Namen, die sich jedoch folgenderweise unterscheiden müssen:
+
+- eine unterschiedliche Anzahl an Parametern
+
+und / oder
+
+- unterschiedliche Datentypen der Parameter
+
+### Mehrdeutigkeit
+
+Ein Funktionsaufruf ist mehrdeutig, falls der Compiler anhand der Argumente nicht eindeutig eine Funktion auswählen kann.
+
+Gründe:
+
+- es gibt keine Funktion die *exakt* passt, aber mehrere für die die Argumente konvertiert werden können
+- es gibt aufgrund von Defaultwerten mehrere Funktionen die exakt mit den Argumenten übereinstimmen.
+
+*Beispiele aus T3/4*
+
+```c++
+int max (int x, int y = 0)
+  {return x >= y ? x : y;}
+long max (int x, int y, long z = 0)
+  {return x >= y ? (x >= z ? x : z) : (y >= z ? y : z);}
+double max (double x, double y)
+  {return x > y ? x : y;}
+
+int main ()
+{
+  std::cout << max (1) << "\n";              // eindeutig, max(int,int) mit x=1 und y=0
+  std::cout << max (1.0) << "\n";            // eindeutig, max(int,int) mit x=1 und y=0
+  std::cout << max (1, 2.0, 3L) << "\n";     // eindeutig, max(int,int,long) mit x=1 und y=2 und z=3
+  std::cout << max (1.0, 2.0) << "\n";       // eindeutig, max(double,double) mit x=1 und y=2
+  std::cout << max (1.0, 2) << "\n";         // mehrdeutig, alle drei Funktionen sind moeglich
+  std::cout << max (1, 2) << "\n";           // mehrdeutig, die Parameter passen exakt zu den ersten beiden Funktionen
+}
+
+```
+
