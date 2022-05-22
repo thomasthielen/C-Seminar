@@ -274,6 +274,10 @@ Beispiele:
   
 // Bits untereinander vertauschen
   z = (z >> 1 & 0b10) | (z << 1 & 0b100) | (z & ~0b110);  // das vorletzte und drittletzte Bit werden vertauscht => 10101100
+  
+// zyklische Rotation von Bits
+  int bits = CHAR_BIT;  // = 8
+  z = (z >> k) | (z << bits >> k);
 ```
 
 ### Simple Eingaben mit cin
