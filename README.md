@@ -582,3 +582,31 @@ Nachteile:
 
 - müssen für unterschiedliche Datentypen mehrfah implementiert werden (da Typprüfung)
 - das Keyword `inline` ist nur ein Vorschlag für Compiler: Auch Funktionen ohne `inline` können inline werden & umgekehrt => Keine Sicherheit
+
+## Funktionspointer
+
+Jede Funktion besitzt eine Einsprungadresse im Programm, über die sie aufgerufen wird. 
+
+Diese Adresse können wir speichern und aufrufen: `Datentyp (*fp) (Parameter) = f;` => `fp (Parameter)`
+
+```c++
+void sort (int x, int y, bool (*fp) (int, int))
+{
+  if (fp (x, y))
+  {
+    int t = x;
+    x = y;
+    y = t;
+  }
+}
+
+bool compare (int a, int b)
+{
+  return a >= b;
+}
+
+int main ()
+{
+  sort (7, 2, compare);
+}
+```
