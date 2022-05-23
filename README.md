@@ -532,6 +532,8 @@ Kleine Berechnungen in Funktionen sind aufgrund des nötigen Funktionsaufrufs be
 
 Mit Makros führen wir eine Textersetzung für einen Ausdruck durch, die uns den Funktionsaufruf erspart.
 
+Die Makros werden nicht vom Compiler, sondern vom Präprozessor bearbeitet: Keine Typprüfung!
+
 Synatx: `#define Name (Parameter) Ausdruck`
 
 Beispiele:
@@ -556,3 +558,27 @@ Makros können zu vielen Seiteneffekten führen, dazu gehören u.a.:
 - mehrfache Ausführung von Inkrement/Dekrement im Makro selbst (z.B. bei MAX(x++, y--))
 - bei gleichem Name von Parametern und lokalen Variablen im Makro: Fehler! (z.B. "T" in SWAP)
 - Es gibt möglicherweise Probleme bei Anwendung von Makros in Kontrollstrukture, z.B. `if SWAP(a,b)`
+
+## inline Funktionen
+
+Eine Alternative zu Makros: Der Funktionsaufruf wird vermieden, indem der Funktionskörper einfach direkt an der Stelle des Aufrufs eingefügt wird.
+
+Syntax:
+
+```c++
+inline double flaeche (double r)
+{
+  return 3.141592 * r * r;
+}
+```
+
+Vorteile:
+
+- keine unerwünschten Seiteneffekte
+- Typprüfung durch den Compiler
+- sonst wie gewöhnliche Funktionen
+
+Nachteile:
+
+- müssen für unterschiedliche Datentypen mehrfah implementiert werden (da Typprüfung)
+- das Keyword `inline` ist nur ein Vorschlag für Compiler: Auch Funktionen ohne `inline` können inline werden & umgekehrt => Keine Sicherheit
