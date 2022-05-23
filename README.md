@@ -487,3 +487,34 @@ int main ()
 
 ```
 
+# Woche 4
+
+## Variable Parameterliste
+
+Syntax:
+
+```c++
+#include "stdarg.h"
+
+int function (int n, ...)
+{
+  va_list list;
+  va_start (list, n);
+  
+  int sum = 0;
+  for (int i = 0; i < n; i++)
+    sum += va_arg (list, int);
+  
+  va_end (list);
+  return sum;
+}
+```
+
+- es braucht immer mind. einen festen Parameter, die variable Parameterliste `...`steht immer am Ende
+- der Compiler überprüft beim Aufruf der Funktion immer nur die Argumente für die festen Parameter
+
+`va_start (list, n)` gibt den Anfang der Parameterliste an (n ist dabei der letzte Parameter vor dieser)
+
+`va_arg (list, int)` liefert das aktuelle Listenelement - konvertiert in den geg. Datentyp (hier: `int`) - und setzt den Zeiger auf das nächste Element
+
+`va_end (list)` beendet die bearbeitung der Parameterliste
