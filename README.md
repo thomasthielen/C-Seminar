@@ -525,3 +525,34 @@ int function (int n, ...)
 - Um innerhalb eines switch-statements aus einer umgebenden Schleife zu entkommen: `goto end;   end: va_end (list);` nutzen
 - Um aus einem geg. ASCII-Wert in `int` einen char zu machen: `(char) va_arg (list, int)`
 - Es können in der variablen Parameterliste natürlich auch Pointer übergeben werden: `int *p = va_arg (list, int*)`
+
+## Makros
+
+Kleine Berechnungen in Funktionen sind aufgrund des nötigen Funktionsaufrufs bei kleinen Berechnungen nicht effizient.
+
+Mit Makros führen wir eine Textersetzung für einen Ausdruck durch, die uns den Funktionsaufruf erspart.
+
+Synatx: `#define Name (Parameter) Ausdruck`
+
+Beispiele:
+
+```c++
+#define MAX (A, B) ((A>B) ? A : B))
+#define PI  3.141592
+
+#define SWAP(A,B)  \
+{                  \
+  auto T = A;      \
+  A=B;             \
+  B=T;             \
+}
+```
+
+- die Parameter sind optional und erhalten keinen Datenwert
+- Makros mit mehreren Zeilen *müssen* hinter jeder Zeile ein `\` stehen haben
+
+Makros können zu vielen Seiteneffekten führen, dazu gehören u.a.:
+
+- mehrfache Ausführung von Inkrement/Dekrement im Makro selbst (z.B. bei MAX(x++, y--))
+- bei gleichem Name von Parametern und lokalen Variablen im Makro: Fehler! (z.B. "T" in SWAP)
+- Es gibt möglicherweise Probleme bei Anwendung von Makros in Kontrollstrukture, z.B. `if SWAP(a,b)`
