@@ -645,8 +645,9 @@ int main ()
 Im Beispiel oben ist a eine Strukturvariable, die durch eine *anonyme Struktur* das `char c` als Element erhält.
 
 - In C muss (im Gegensatz zu C++) bei der Deklaration von Strukturvariablen ein `struct` angegeben werden: `struct S s;`
-- Eine Strukturvariable kann direkt initialisiert werden: `struct S s = {3.2}`, fehlende Werte werden mit 0 ergänzt
-- Bei einem Pointer auf eine Struktur `S *p = &s;` kann über den `->`-Operator auf die Elemente der Struktur zugegriffen werden:
+- Eine Strukturvariable kann direkt initialisiert werden: `struct S s = {3.2}`, fehlende Werte werden mit 0 ergänzt.
+
+Bei einem Pointer auf eine Struktur `S *p = &s;` kann über den `->`-Operator auf die Elemente der Struktur zugegriffen werden:
 
 ```c++
 S *p = &s;
