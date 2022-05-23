@@ -518,3 +518,10 @@ int function (int n, ...)
 `va_arg (list, int)` liefert das aktuelle Listenelement - konvertiert in den geg. Datentyp (hier: `int`) - und setzt den Zeiger auf das nächste Element
 
 `va_end (list)` beendet die Bearbeitung der Parameterliste
+
+### Notizen aus T4/1
+
+- Durch einen geg. string können wir wie gewohnt mit einer `for (char c : s)`-Schleife iterieren
+- Um innerhalb eines switch-statements aus einer umgebenden Schleife zu entkommen: `goto end;   end: va_end (list);` nutzen
+- Um aus einem geg. ASCII-Wert in `int` einen char zu machen: `(char) va_arg (list, int)`
+- Es können in der variablen Parameterliste natürlich auch Pointer übergeben werden: `int *p = va_arg (list, int*)`
