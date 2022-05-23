@@ -610,3 +610,49 @@ int main ()
   sort (7, 2, compare);
 }
 ```
+
+Eine Funktion, die als Funktionspointer in einen Parameter eingesetzt werden kann, nennt man auch "Callback-Funktion".
+
+## Strukturen
+
+[Tutorial](https://www.cplusplus.com/doc/tutorial/structures/)
+
+Syntax:
+
+```c++
+struct S
+{
+  double x;
+  int *i;
+  struct S **p;
+  struct
+  {
+    char c;
+  } a;
+};
+
+int main ()
+{
+  int a [4] = {1,2,3,4};
+  S s, *p = &y;
+  s.x = 1.2;
+  s.i = a;
+  s.p = &p;
+  s.a.c = 'x';
+}
+```
+
+Im Beispiel oben ist a eine Strukturvariable, die durch eine *anonyme Struktur* das `char c` als Element erhält.
+
+- In C muss (im Gegensatz zu C++) bei der Deklaration von Strukturvariablen ein `struct` angegeben werden: `struct S s;`
+- Eine Strukturvariable kann direkt initialisiert werden: `struct S s = {3.2}`, fehlende Werte werden mit 0 ergänzt
+- Bei einem Pointer auf eine Struktur `S *p = &s;` kann über den `->`-Operator auf die Elemente der Struktur zugegriffen werden:
+
+```c++
+S *p = &s;
+p->x = 12.2;
+```
+
+### Notizen aus T4/4
+
+- 
