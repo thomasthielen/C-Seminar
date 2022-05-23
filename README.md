@@ -517,4 +517,4 @@ int function (int n, ...)
 
 `va_arg (list, int)` liefert das aktuelle Listenelement - konvertiert in den geg. Datentyp (hier: `int`) - und setzt den Zeiger auf das nächste Element
 
-`va_end (list)` beendet die bearbeitung der Parameterliste
+`va_end (list)` beendet die Bearbeitung der Parameterliste
