@@ -731,4 +731,17 @@ int compare (const void* p1, const void* p2)
 = Feld des Datentyps char, wobei das Ende des Strings mit einem `\0` gekennzeichnet wird
 
 - benötigen `#include <cstring>`
-- kann 
+- dürfen nach der Initialiserung nicht mit einem neuen String überschrieben werden (also z.B. `char s1[] = "hello"; s1 = "test"`
+  - dafür nutzen wir strcpy
+- `strlen (s1)` ergibt die Länge des Strings bis zum `\0` (und ohne dieses mitzuzählen)
+- `sizeof (s1)` ergibt dahingegen die Anzahl der Elemente. `char s2[20] = "hello";` hat deshalb auch `sizeof (s2) = 20`
+
+```c++
+#include <cstring>
+
+int main ()
+{
+  char s1[] = "hello";    // entspricht ['h','e','l','l','o','\0'}
+}
+```
+
