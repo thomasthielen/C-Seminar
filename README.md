@@ -664,7 +664,7 @@ Dieser entspricht der Dereferenzierung mit Punkt, also `p->x == (*p).x`
 
 ## Arrays
 
-[Tutorial] (http://cplusplus.com/doc/tutorial/arrays/)
+[Tutorial](http://cplusplus.com/doc/tutorial/arrays/)
 
 Deklaration & Initialisierung:
 
