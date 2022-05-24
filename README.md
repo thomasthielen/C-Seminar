@@ -654,6 +654,10 @@ S *p = &s;
 p->x = 12.2;
 ```
 
+Dieser entspricht der Dereferenzierung mit Punkt, also `p->x == (*p).x`
+
 ### Notizen aus T4/4
 
-- 
+- `->` wird immer *vor* `&` und `*` ausgewertet => Klammersetzung ist sehr wichtig!
+- `.` wird auch immer *vor* `&` und `*` ausgewertet
+- Um oben auf den `char c` innerhalb der Anonymen Struktur a zugreifen zu können, müssen wir wie folgt einen Pointer auf a generieren, über den wir auf c zugreifen können: `(&s.a)->c`
