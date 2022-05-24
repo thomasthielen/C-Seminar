@@ -694,3 +694,4 @@ int a [4] = {1,2,3,4};
 int n = sizeof (a) / sizeof (a[0]);   // sizeof (a[0]) == sizeof (int)
 ```
 
+# Woche 5
