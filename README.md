@@ -727,3 +727,8 @@ int compare (const void* p1, const void* p2)
 ## C-Strings
 
 [Wichtige Funktionen der Standardbibliothek](http://cplusplus.com/reference/cstring/)
+
+= Feld des Datentyps char, wobei das Ende des Strings mit einem `\0` gekennzeichnet wird
+
+- benötigen `#include <cstring>`
+- kann 
