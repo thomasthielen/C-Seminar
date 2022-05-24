@@ -745,3 +745,6 @@ int main ()
 }
 ```
 
+## C++ Strings
+
+Siehe Vorlesung, I can't be fucking bothered
