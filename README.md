@@ -724,3 +724,6 @@ int compare (const void* p1, const void* p2)
   - `num = sizeof (str) / sizeof (const char *)`
   - in der compare-Funktion: `const char *s1 = *(const char **) p1;` => Es werden Pointer auf die Elemente des Arrays übergeben, die selbst Pointer auf chars sind (da ein string ja nichts anderes als ein char-Array ist). Wir konvertieren also in einen doppelten char Pointer und dereferenzieren diesen
 
+## C-Strings
+
+[Wichtige Funktionen der Standardbibliothek](http://cplusplus.com/reference/cstring/)
