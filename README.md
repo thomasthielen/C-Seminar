@@ -706,3 +706,14 @@ Syntax: `qsort (pointer to array, number of elements, size of each element, comp
 int array [] = {3,7,2,13,5,8,1,17,6,9};
 qsort (array, sizeof(array) / sizeof(int), sizeof(int), intCompare);
 ```
+
+Die compare-Funktion muss selbst geschrieben werden und folgt folgendem Aufbau:
+
+```c++
+int compare (const void* p1, const void* p2)
+{
+    int i1 = *(const int *) p1;   // konvertiert den void-Pointer in einen int-Pointer und dereferenziert dessen Wert
+    int i2 = *(const int *) p2;
+    return i1 - i2;
+}
+```
