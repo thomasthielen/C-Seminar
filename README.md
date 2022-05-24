@@ -717,3 +717,10 @@ int compare (const void* p1, const void* p2)
     return i1 - i2;
 }
 ```
+
+### Notizen aus T5/1
+
+- Für ein `const char *str [] = {"hallo", "heute"}` Array muss folgendes getan werden:
+  - `num = sizeof (str) / sizeof (const char *)`
+  - in der compare-Funktion: `const char *s1 = *(const char **) p1;`  // Es werden Pointer auf die Elemente des Arrays übergeben, die selbst Pointer auf chars sind (da ein string ja nichts anderes als ein char-Array ist). Wir konvertieren also in einen doppelten char Pointer und dereferenzieren diesen
+
