@@ -695,3 +695,14 @@ int n = sizeof (a) / sizeof (a[0]);   // sizeof (a[0]) == sizeof (int)
 ```
 
 # Woche 5
+
+## qsort
+
+[cplusplus reference](http://cplusplus.com/reference/cstdlib/qsort/?kw=qsort)
+
+Syntax: `qsort (pointer to array, number of elements, size of each element, compare function)`
+
+```c++
+int array [] = {3,7,2,13,5,8,1,17,6,9};
+qsort (array, sizeof(array) / sizeof(int), sizeof(int), intCompare);
+```
