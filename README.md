@@ -661,3 +661,36 @@ Dieser entspricht der Dereferenzierung mit Punkt, also `p->x == (*p).x`
 - `->` wird immer *vor* `&` und `*` ausgewertet => Klammersetzung ist sehr wichtig!
 - `.` wird auch immer *vor* `&` und `*` ausgewertet
 - Um oben auf den `char c` innerhalb der Anonymen Struktur a zugreifen zu können, müssen wir wie folgt einen Pointer auf a generieren, über den wir auf c zugreifen können: `(&s.a)->c`
+
+## Arrays
+
+[Tutorial] (http://cplusplus.com/doc/tutorial/arrays/)
+
+Deklaration & Initialisierung:
+
+```c++
+int n = 0;
+std::cin >> n; 
+
+int x [];             // illegal
+int a [4];            // Feld ohne Initialisierung
+int b [4] = {1,2,3};  // Feld mit Initialisierung
+int c [] = {1,2,3};   // Feld ohne Groessenangabe
+int d [n];            // Feld variabler Laenge (NUR IN C, NICHT IN C++)
+```
+
+Wird ein Array nicht initialisiert, so ist der Inhalt unbestimmt:
+
+```c++
+int a [4];            // enthält z.B. {3732831,8783274,932493,326473};
+int b [4] = {1,2,3}   // enthält {1,2,3,0}  =>  fehlende Werte = 0 (default value)
+int c [4] = {}        // enthält {0,0,0,0}  =>  alle Werte = 0 (default value)
+```
+
+Die Größe eines Arrays (Anzahl Elemente) lässt sich folgendermaßen bestimmen:
+
+```c++
+int a [4] = {1,2,3,4};
+int n = sizeof (a) / sizeof (a[0]);   // sizeof (a[0]) == sizeof (int)
+```
+
