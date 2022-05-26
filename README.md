@@ -881,3 +881,11 @@ for (int i = 0; i < 2; i++)
   delete [] feld[i];
 delete feld;
 ```
+
+### Ragged Arrays
+
+siehe VL
+
+## Listen
+
+siehe VL
