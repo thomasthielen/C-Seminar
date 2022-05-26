@@ -825,6 +825,9 @@ int main () {
   int *t1 = new Time;               // keine Initialisierung
   int *t2 = new Time {12,30}        // Initialisierung mit {12,30,0}
   int *t3 = new Time ();            // Initialisierung mit {0,0,0}
+  
+  delete [] a1; delete [] a2; delete [] a3;   // alle mit "new type[]" erzeugten Pointer müssen mit "delete []" freigegeben werden
+  delete t1; delete t2; delete t3;            // alle mit "new type" erzeugten Pointer müssen mit "delete" freigegeben werden
 }
 ```
 
@@ -832,3 +835,22 @@ int main () {
 
 - Memory Leaks: Ein Speicherbereich kann nicht mehr verwaltet werden, weil der Pointer überschrieben wurde
 - Dangling Pointer: Ein Speicherbereich wird über 2 versch. Pointer referenziert und über den ersten Pointer freigegeben. Die Adresse im zweiten Pointer wird dann ungültig (`double free error` sollten wir dann versuchen den Speicherbereich über den zweiten Pointer freizugeben)
+
+### Felder zurückgeben
+
+Adressen für arrays sind nur lokal, weswegen wir Felder auf dem Heap allokieren müssen, um sie nach der Methode weiterverwenden zu können.
+
+```c++
+int *f ()
+{
+  int *a = new int[4] {1,2,3,4};    // Feld wird auf Heap allokiert
+  return a;                         // wir geben in Form eines Pointers die Adresse des Felds zurück
+}
+
+int main ()
+{
+  int *a = f ();                    // wir übernehmen den Pointer...
+  a[0] = 5;                         // können ihn nutzen um das Feld zu lesen / zu bearbeiten
+  delete a;                         // und MÜSSEN ihn am Ende auch freigeben!
+}
+```
