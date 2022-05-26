@@ -751,3 +751,51 @@ Siehe Vorlesung, I can't be fucking bothered
 
 # Woche 6
 
+## Dynamische Speicherallokation
+
+Der Stack ist klein und globale & statische lokale Variablen belegen von Programmstart bis Ende ihren reservierten Speicherbereich.
+
+Zudem wissen wir manchmal (z.B. durch User Input) nicht, wie groß ein Feld zur Laufzeit sein soll.
+
+Lösung: Wir erzeugen große Felder dynamisch zur Laufzeit
+
+### C
+
+`void *malloc (size_t sizeOfMemoryBlock)`
+
+malloc allokiert einen zusammenhängenden Speicherbereich der Größe size
+
+`void *calloc (size_t numOfElements, size_t sizeOfEachElement)`
+
+calloc allokiert einen zusammenhängenden Speicherbereich mit num Elementen der Größe von jeweils size & *initialisiert diese mit 0*
+
+`void *realloc (void *p, size_t newSize)`
+
+realloc vergrößert/verkleinert den allokierten Speicherbereich an \*p auf die Größe size
+
+- Falls der Speicherbereich verkleinert oder verschoben wird, wird der nun nicht mehr genutzte Speicherbereich freigegeben
+  - Wir *müssen* dann mit dem neuen (zurückgegebenen) Pointer weiterarbeiten!
+
+`void free (void *p)`
+
+Gibt den allokierten Speicherbereich ab \*p frei
+
+Beispiel: 
+
+```c++
+  int i,n;
+  char * buffer;
+
+  printf ("How long do you want the string? ");
+  scanf ("%d", &i);               // User Input zur Länge des char arrays
+
+  buffer = (char *) malloc (i+1);
+  if (buffer == NULL) exit (1);   // Abbruchbedingung bei Fehler im malloc
+
+  for (n = 0; n < i; n++)
+    buffer[n] = rand()%26+'a';
+  buffer[i] = '\0';
+
+  printf ("Random string: %s\n",buffer);
+  free (buffer);                  // Allokierten Speicher freigeben
+```
