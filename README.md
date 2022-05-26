@@ -854,3 +854,20 @@ int main ()
   delete a;                         // und MÜSSEN ihn am Ende auch freigeben!
 }
 ```
+
+### Zweidimensionale Felder
+
+- Methode 1: Ein Zusammenhängender Bereich
+  - Einfache Allokation, kompliziertere Indexberechnung
+- Methode 2: Zweidimensionale Felder mit Pointern
+  - Kompliziertere Allokation, einfache Indexberechnung
+
+Zu Methode 2:
+
+```c++
+int (*feld) [3]   = new int [2][3] {{1,2,3},{2,3,5}}; 
+// ODER
+int **feld = new int* [2];
+for (int i = 0; i < 2; i++)
+  feld[i] = new int [3];
+```
