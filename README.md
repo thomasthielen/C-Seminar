@@ -865,9 +865,19 @@ int main ()
 Zu Methode 2:
 
 ```c++
+// Allokieren
 int (*feld) [3]   = new int [2][3] {{1,2,3},{2,3,5}}; 
+// Freigeben
+delete [] intArray2;
+
 // ODER
+
+// Allokieren
 int **feld = new int* [2];
 for (int i = 0; i < 2; i++)
   feld[i] = new int [3];
+// Freigeben
+for (int i = 0; i < 2; i++)
+  delete [] feld[i];
+delete feld;
 ```
