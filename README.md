@@ -770,7 +770,7 @@ malloc allokiert einen zusammenhängenden Speicherbereich der Größe size
   char *buffer;                     // Pointer für array anlegen
   scanf ("%d", &i);                 // user input für Größe des Speicherbereichs
   
-  buffer = (char *) malloc (i+1);   // Speicher allokieren
+  buffer = (char *) malloc (i+1);   // Speicher allokieren (char = 1 Byte)
   if (buffer == NULL) exit (1);     // Error abfangen
   // [...]
   free (buffer);                    // Speicher freigeben
@@ -779,6 +779,17 @@ malloc allokiert einen zusammenhängenden Speicherbereich der Größe size
 `void *calloc (size_t numOfElements, size_t sizeOfEachElement)`
 
 calloc allokiert einen zusammenhängenden Speicherbereich mit num Elementen der Größe von jeweils size & *initialisiert diese mit 0*
+
+```c++
+  int i;
+  int *pData;                               // Pointer für array anlegen
+  scanf ("%d",&i);                          // user input für Anzahl an Elementen
+  
+  pData = (int *) calloc (i, sizeof(int));  // Speicher allokieren (i Elemente der Größe int)
+  if (pData==NULL) exit (1);                // Error abfangen
+  // [...]
+  free (pData);                             // Speicher freigeben
+```
 
 `void *realloc (void *p, size_t newSize)`
 
@@ -791,5 +802,33 @@ realloc vergrößert/verkleinert den allokierten Speicherbereich an \*p auf die 
 
 Gibt den allokierten Speicherbereich ab \*p frei
 
+### C++
 
+`new` allokiert einen zusammenhängenden Speicherbereich und gibt einen entsprechenden Pointer zurück
 
+`delete` gibt den zusammenhängenden Speicherbereich frei
+
+- Dynamische Speicherbefehle von C & C++ dürfen *nicht* vermischt werden!
+- Die C++ Operationen rufen jeweils den entsprechenden Konstruktor bzw. Destruktor auf
+
+Beispiel:
+
+```c++
+struct Time {
+  int hour, min, sec;
+}
+
+int main () {
+  int *a1 = new int[5];             // keine Initialisierung
+  int *a2 = new int[5] {1,2,3};     // Initialisierung mit {1,2,3,0,0}
+  int *a3 = new int[5] ();          // Initialisierung mit {0,0,0,0,0}
+  int *t1 = new Time;               // keine Initialisierung
+  int *t2 = new Time {12,30}        // Initialisierung mit {12,30,0}
+  int *t3 = new Time ();            // Initialisierung mit {0,0,0}
+}
+```
+
+### Probleme der Speicherverwaltung
+
+- Memory Leaks: Ein Speicherbereich kann nicht mehr verwaltet werden, weil der Pointer überschrieben wurde
+- Dangling Pointer: Ein Speicherbereich wird über 2 versch. Pointer referenziert und über den ersten Pointer freigegeben. Die Adresse im zweiten Pointer wird dann ungültig (`double free error` sollten wir dann versuchen den Speicherbereich über den zweiten Pointer freizugeben)
