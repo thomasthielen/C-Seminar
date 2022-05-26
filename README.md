@@ -866,9 +866,9 @@ Zu Methode 2:
 
 ```c++
 // Allokieren
-int (*feld) [3]   = new int [2][3] {{1,2,3},{2,3,5}}; 
+int (*feld) [3] = new int [2][3] {{1,2,3},{2,3,5}}; 
 // Freigeben
-delete [] intArray2;
+delete [] feld;
 
 // ODER
 
