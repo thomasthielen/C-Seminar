@@ -924,3 +924,22 @@ class String {
     }
 }
 ```
+
+- Die Rückgabe `return *this` ist wichtig für Mehrfachzuweisungen, also z.B. `s1 = s2 = s3;`
+- Der Copy-Konstruktor lässt sich im Copy-Zuweisungsoperator nutzen & umgekehrt => spart 2x das gleiche zu machen
+
+ACHTUNG:
+
+```c++
+int main ()
+{
+  A a1;       // Default-Konstruktor
+  A a2 (a1);  // Copy-Konstruktor
+  A a3 = a1;  // Copy-Konstruktor - NICHT Zuweisungsoperator: '=' ist hier der Initialisierungsoperator!!!
+  a3 = a2;    // Zuweisungsoperator
+}
+```
+
+Das kopieren der Daten kann schnell langsam werden, deshalb alternativ: 
+
+## Move-Konstruktor
