@@ -889,3 +889,38 @@ siehe VL
 ## Listen
 
 siehe VL
+
+# Woche 7
+
+## Klassen
+
+*Sehr* gute Zusammenfassung in VL & auf cplusplus.com
+
+# Woche 8
+
+## Copy-Konstruktor
+
+```c++
+class String {
+  private:
+    string str;
+  public:
+    // Copy-Konstruktor
+    String (const String &s) 
+    : str (new char [strlen (s.str) + s]) // Arrays immer in Initialisierungsliste allokieren...
+    {
+      strcpy (str, s.str);                // ...und dann im Funktionskörper füllen
+    }
+    
+    // Copy-Zuweisungsoperator
+    const String &operator= (const String &s) {
+      if (&s != this)                         // !!! verhindert Probleme bei Selbstzuweisung, also s1 = s1
+      {
+        delete str;                           // Puffer freigeben
+        str = new char [strlen(s.str) + 1];   // neuen Speicher mit entsprechender Größe allokieren
+        strcpy (str, s.str);                  // diesen füllen
+        return *this;                         // !!! Das eigene Objekt dereferenziert zurückgeben
+      } 
+    }
+}
+```
