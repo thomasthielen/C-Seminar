@@ -907,7 +907,7 @@ class String {
   public:
     // Copy-Konstruktor
     String (const String &s) 
-    : str (new char [strlen (s.str) + s]) // Arrays immer in Initialisierungsliste allokieren...
+    : str (new char [strlen (s.str) + 1]) // Arrays immer in Initialisierungsliste allokieren...
     {
       strcpy (str, s.str);                // ...und dann im Funktionskörper füllen
     }
