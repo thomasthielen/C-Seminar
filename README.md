@@ -896,6 +896,8 @@ siehe VL
 
 *Sehr* gute Zusammenfassung in VL & auf cplusplus.com
 
+### Tutorial zu [Initialisierung von Objekten](https://cplusplus.com/doc/tutorial/classes/#uniform_initialization)
+
 # Woche 8
 
 ## Copy-Konstruktor
