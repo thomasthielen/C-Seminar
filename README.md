@@ -898,6 +898,11 @@ siehe VL
 
 ### Tutorial zu [Initialisierung von Objekten](https://cplusplus.com/doc/tutorial/classes/#uniform_initialization)
 
+### Operatoren-Überblick
+
+![image](https://user-images.githubusercontent.com/87545109/170866972-0f0f4447-0e1e-48d1-ab51-5ddf612b5f59.png)
+
+
 # Woche 8
 
 ## Copy-Konstruktor
