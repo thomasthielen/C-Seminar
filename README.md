@@ -1201,21 +1201,37 @@ Die Klassenmethode aufrufen können wir...
 
 Durch das Überladen von Operatoren lassen sich diese auf Instanzen eigener Datentypen (Klassen) anwenden.
 
-Sie können sowohl als Instanzmethode oder als globale Funktion überladen werden:
+Sie können sowohl als Instanzmethode oder als globale Funktion überladen werden, wobei in *beiden* Varianten `const Class &c` (konstante Referenzen) als Parameter übergeben werden.
 
 ### Instanzmethode
 
-Der erste Operand ist die Instanz auf die die Instanzmethode aufgeführt wird, der evtl. zweite Operand ist im Parameter:
+Der erste Operand ist die Instanz auf die die Instanzmethode aufgeführt wird, der evtl. zweite Operand ist im Parameter.
+
+### globale Funktion
+
+Der einzige / beide Operanden sind im Parameter.
+
+Beispiel für beide Optionen:
 
 ```c++
 class Klasse
 {
-	
-  Klasse operator+ (const Klasse &k) {}
+  public:
+    int a;
+    Klasse (int a) : a(a) {}
+  // Instanzmethode:
+    Klasse operator+ (const Klasse &k) {return a + k.a;}
+}
 
+// ODER globale Funktion
+Klasse operator+ (const Klasse &k1, const Klasse &k2)
+{
+  return k1.a + k2.a;
+}
 
 int main ()
 {
-  
+  Klasse k1 = 2, k2 = 4;
+  Klasse k3 = k1 + k2;    // k3.a = 6
 }
 ```
