@@ -1059,6 +1059,20 @@ class Klasse
 
 ## Copy-Konstruktor
 
+Der Copy-Konstruktor sowie der Copy-Zuweisungsoperator werden automatisch vom Compiler ergänzt, falls keine eigenen definiert werden.
+
+Ein eigener Copy-Konstruktor wird z.B. in folgendem Fall nötig:
+
+```c++
+String s1 = ("Hello");
+// Alle folgenden Operationen machen für unsere eigene Klasse `String` das gleiche:
+String s2 (s1);
+String s2 {s1};
+String s2 = s1;
+```
+
+Problem: Änderungen an `s2` verändern *auch* `s1`! Daher schreiben wir unseren eigenen Copy-Konstruktor:
+
 ```c++
 class String {
   private:
@@ -1099,6 +1113,67 @@ int main ()
 }
 ```
 
-Das kopieren der Daten kann schnell langsam werden, deshalb alternativ: 
+Problem: Das kopieren der Daten per Copy-Konstruktor kann schnell langsam werden, deshalb alternativ: 
 
 ## Move-Konstruktor
+
+### L-Value vs. R-Value
+
+`L-Value Objekt`: Ausdruck, dessen Adresse vom Programm bestimmt werden kann
+
+`R-Value Objekt`: Ausdruck, dessen Adresse *nicht* vom Programm bestimmt werden kann
+
+`L-Value Referenz (&)`: Referenz auf ein L-Value Objekt
+
+`R-Value Referenz (&&)`: Referenz auf ein R-Value Objekt
+
+Beispiel:
+
+```c++
+int i = 1;
+
+int &l1 = i;      // zulässig, i ist L-Value
+int &l2 = i+2;    // nicht zulässig, i+2 ist R-Value
+int &&r1 = i+2;   // R-Value-Referenz
+int &&r2 = i;     // implizit nicht zulässig, da i ist L-Value
+```
+
+### Move-Konstruktor und Move-Zuweisungsoperator
+
+- Die *Move-Methoden* werden aufgerufen, wenn der Quell-Operand eine `R-Value Referenz` ist
+  - Ist der Quell-Operand eine `L-Value Referenz`, so werden die *Copy-Methoden* aufgerufen
+- Eine `L-Value Referenz` kann mit `std::move(l_value_reference)` in eine `R-Value Referenz` umgewandelt werden
+- Der Aufruf von `std::move()` auf eine `const L-Value Referenz` hat keine Wirkung
+
+Beispiele dazu ob Copy- oder Move-Methoden aufgerufen werden: VL 07/153
+
+```c++
+    int *array, size;
+	// Move-Konstruktor
+    A (A &&a) : array (nullptr)
+    {
+      *this = std::move (a);	// wir nutzen den Zuweisungsoperator
+    }
+	
+	// Move-Zuweisungsoperator
+    const A &operator= (A &&a)
+    {
+      delete [] array;
+      array = a.array;
+      size = a.size;
+      a.array = nullptr;
+      a.size = 0;
+      return *this;
+    }
+```
+
+## Klassenvariablen und Klassenmethoden (static)
+
+[Tutorial](https://cplusplus.com/doc/tutorial/templates/#static_members)
+
+### Klassenvariablen
+
+- nur einmal für die gesamte Klasse erzeugt
+- nicht an eine Instanz der Klasse gebunden, der Wert der Klassenvariable ist für alle Instanzen gleich
+- mit dem Keyword `static` gekennzeichnet: `static int numObjects;`
+- Initialisierung erfolgt *außerhalb* 
