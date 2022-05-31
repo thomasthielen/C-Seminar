@@ -900,8 +900,17 @@ siehe VL
 
 ### Operatoren-Überblick
 
-![image](https://user-images.githubusercontent.com/87545109/170866972-0f0f4447-0e1e-48d1-ab51-5ddf612b5f59.png)
 
+| expression | can be read as                                                       |
+| ---------- | -------------------------------------------------------------------- |
+| \*x	       | pointed to by x                                                      |
+| &x	       | address of x                                                         |
+| x.y	       | member y of object x                                                 |
+| x->y	     | member y of object pointed to by x                                   |
+| ( \*x).y	 | member y of object pointed to by x (equivalent to the previous one)  |
+| x[0]	     | first object pointed to by x                                         |
+| x[1]	     | second object pointed to by x                                        |
+| x[n]	     | (n+1)th object pointed to by x                                       |
 
 # Woche 8
 
