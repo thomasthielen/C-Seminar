@@ -927,6 +927,27 @@ void ausgabe (const Konto &konto)
 }
 ```
 
+### const-Methoden
+
+Durch eine `const`-Deklaration teilen wir dem Compiler mit, dass in der markierten Methode keine *Instanzvariable* der Klasse geändert wird.
+
+- Vergleiche mit `const`-Parameter: Damit teilen wir dem Compiler mit, dass die üergebenen Argumente (falls Referenzen/Pointer) nicht verändert werden!
+- `const`-Methoden selbst dürfen auch nur andere `const`-Methoden aufrufen (selbst wenn diese eigentlich keine Instanzvariablen ändern!)
+- Wir dürfen für `const`-Instanzen einer Klasse *nicht* non-`const`-Methoden aufrufen!
+
+```c++
+void ausgabe () const
+{
+
+}
+```
+
+=> Ausführliches Beispiel in der VL
+
+### Konstruktor & Destruktor
+
+
+
 ### Tutorial zu [Initialisierung von Objekten](https://cplusplus.com/doc/tutorial/classes/#uniform_initialization)
 
 ### Operatoren-Überblick
