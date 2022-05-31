@@ -1,6 +1,6 @@
 # FAQ
 
-### Warum übergibt man im Parameter eine `const int &i` const Referenz?
+### Warum übergibt man im Parameter eine `const int &i` Referenz?
 
 Aus Gründen der Performance: Würden wir einen "normalen" Parameter übergeben, so müsste dieser kopiert werden.
 
