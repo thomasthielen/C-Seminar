@@ -1197,3 +1197,25 @@ Die Klassenmethode aufrufen können wir...
 
 ## Überladen von Operatoren
 
+[Tutorial](https://cplusplus.com/doc/tutorial/templates/#overloading_operators)
+
+Durch das Überladen von Operatoren lassen sich diese auf Instanzen eigener Datentypen (Klassen) anwenden.
+
+Sie können sowohl als Instanzmethode oder als globale Funktion überladen werden:
+
+### Instanzmethode
+
+Der erste Operand ist die Instanz auf die die Instanzmethode aufgeführt wird, der evtl. zweite Operand ist im Parameter:
+
+```c++
+class Klasse
+{
+
+  Klasse operator+ (const Klasse &k) {}
+}
+
+int main ()
+{
+
+}
+```
