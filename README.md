@@ -1176,4 +1176,19 @@ Beispiele dazu ob Copy- oder Move-Methoden aufgerufen werden: VL 07/153
 - nur einmal für die gesamte Klasse erzeugt
 - nicht an eine Instanz der Klasse gebunden, der Wert der Klassenvariable ist für alle Instanzen gleich
 - mit dem Keyword `static` gekennzeichnet: `static int numObjects;`
-- Initialisierung erfolgt *außerhalb* 
+- Initialisierung erfolgt *außerhalb* der Klassendefinition: `int Klasse::numObjects = 0;`
+
+Auf die Variable zugreifen können wir...
+
+- ...über jede Instanz der Klasse: `Klasse a;` `a.numObjects = 0;`
+- ...über den Scope-Operator: `Klasse::numObjects = 0;`
+
+### Klassenmethoden
+
+- benötigt keine Instanz der Klasse um aufgerufen zu werden
+- innerhalb dieser darf kein `this` benutzt werden
+
+Die Methode aufrufen können wir...
+
+- ...über jede Instanz der Klasse: `Klasse a;` `a.getNumObjects();`
+- ...über den Scope-Operator: `Klasse::getNumObjects();`
