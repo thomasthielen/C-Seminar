@@ -1216,6 +1216,6 @@ class Klasse
 
 int main ()
 {
-
+  
 }
 ```
