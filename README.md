@@ -1235,3 +1235,69 @@ int main ()
   Klasse k3 = k1 + k2;    // k3.a = 6
 }
 ```
+
+Deklarieren wir eine überladene Operator-Instanzmethode als `friend`, so verhält sich diese (bezüglich Parameter) wie eine globale Funktion:
+
+```c++
+class A
+{
+  int value;
+  
+  bool operator< (const A a2)
+  {
+    return value < a2.value;
+  }
+// vs.
+  friend bool operator< (const A &a1, const A &a2)
+  {
+    return a1.value < a2.value;
+  }
+}
+```
+
+Es folgen einige häufig überladene Operatoren und ihre Eigenheiten:
+
+### +=,-=,\*=,/= Zuweisungsoperator
+
+Diese berufen sich im besten Fall auf ihre eigentlichen Operator-Methoden (also z.B. operator+ für operator+=) und geben die Instanz selbst wieder aus:
+
+```c++
+const A &operator+= (const A &a)
+{
+  *this = *this + a;  
+  return *this;
+}
+```
+
+### Vergleichsoperatoren
+
+```c++
+bool operator< (const A &a1, const A &a2)
+{
+  return a1.value < a2.value;
+}
+```
+
+### Inkrement- / Dekrement-Operatoren (Prä/Post)
+
+Der Post-Operator `i++` wird durch einen Dummy-Parameter des Typs `int` markiert
+
+```c++
+class A
+{
+  int x;
+  // Prä-Operator   (++a)
+  A &operator++ () 
+  {
+    x++;
+    return *this;
+  }
+  // Post-Operator  (a++)
+  A &operator++ (int)
+  {
+    A r (x);    
+    x++;
+    return r;   // wir geben also eine Instanz von A zurück, die noch den "alten" Wert von x hält
+  }
+}
+```
