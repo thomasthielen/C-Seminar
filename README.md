@@ -931,7 +931,7 @@ void ausgabe (const Konto &konto)
 
 Durch eine `const`-Deklaration teilen wir dem Compiler mit, dass in der markierten Methode keine *Instanzvariable* der Klasse geändert wird.
 
-- Vergleiche mit `const`-Parameter: Damit teilen wir dem Compiler mit, dass die üergebenen Argumente (falls Referenzen/Pointer) nicht verändert werden!
+- Vergleiche mit `const`-Parameter: Damit teilen wir dem Compiler mit, dass die übergebenen Argumente (falls Referenzen/Pointer) nicht verändert werden!
 - `const`-Methoden selbst dürfen auch nur andere `const`-Methoden aufrufen (selbst wenn diese eigentlich keine Instanzvariablen ändern!)
 - Wir dürfen für `const`-Instanzen einer Klasse *nicht* non-`const`-Methoden aufrufen!
 
@@ -944,9 +944,100 @@ void ausgabe () const
 
 => Ausführliches Beispiel in der VL
 
-### Konstruktor & Destruktor
+### Konstruktor
 
+Wird beim Erzeugen einer Instanz der Klasse aufgerufen
 
+- Trägt den Namen der Klasse und hat *keinen* Rückgabetyp
+- Eine Klasse kann mehrere unterschiedliche Konstruktoren besitzen => gleiche Regeln wie beim Überladen von Funktionen
+- Wird kein Konstruktor definiert, so ergänzt der Compiler den parameterlosen Default-Konstruktor
+
+```c++
+class Konto
+{
+  public:
+    Konto () {}
+    Konto (int i) {}
+}
+```
+
+### Destruktor
+
+Wird beim Freigeben einer Instanz der Klasse aufgerufen
+
+- Eine Klasse darf *nur einen* Destruktor ohne Parameter & Rückgabetyp besitzen
+- Wird kein Destruktor definiert, so ergänzt der Compiler einen *leere* Destruktor
+
+```c++
+class Konto 
+{
+  public:
+    ~Konto ()
+    {
+      [...]
+    }
+}
+```
+
+### Initialisierungsliste
+
+[Tutorial zur Initialisierungsliste](https://cplusplus.com/doc/tutorial/classes/#member_initialization)
+
+```c++
+class Konto
+{
+  private:
+    int summe;
+  public:
+    Konto (int s) : summe(s) 
+    {
+    
+    }
+}
+```
+
+Vorteile der Initialisierungsliste:
+
+- mehrfache Initialisierung von Instanzvariablen (also Objekten anderer Klassen) wird verhindert
+  - Beispiel:
+
+```c++
+class A {
+public:
+    int x;
+    A() { x = 0; }
+    A(int i) { x = i; }
+};
+
+class B {
+public:
+    B() { a.x = 3; }    // doppelte Initialisierung von a.x => erst x = 0 durch Default-Konstrukto von a und danach x = 3
+    // vs.
+    B() : a(3) { };     // einfache Initialisierung von a.x => direkt der Aufruf des A(3) Konstruktors, damit also nur x = 3
+private:
+    A a;
+};
+```
+
+- `const`-Variablen und Referenzen können *nur* in der Initialisierungsliste, *nicht* im Konstruktorkörper initialisiert werden
+- für Instanzen einer Klasse könenn wir explizite Konstruktoraufrufe durchführen (siehe Beispiel oben zu mehrfacher Initialisierung)
+- wir können einen anderen Konstruktor der gleichen Klasse aufrufen
+
+Eine weitere wichtige Funktion der Initialisierungsliste ist die Allokierung von Speicher (per `new`):
+
+```c++
+class Klasse
+{
+  private:
+    string *schueler;
+  public:
+    Klasse (int num, string *namen) : schueler(new string[num])
+    {
+      for (int i = 0; i < num; i++)
+        schueler[i] = namen[i];
+    }
+}
+```
 
 ### Tutorial zu [Initialisierung von Objekten](https://cplusplus.com/doc/tutorial/classes/#uniform_initialization)
 
