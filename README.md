@@ -1300,4 +1300,38 @@ class A
     return r;   // wir geben also eine Instanz von A zurück, die noch den "alten" Wert von x hält
   }
 }
+
+// als globale Funktion muss man die Parameter wie folgt schreiben:
+// ++a
+A operator++ (Rational &a) {}
+// a++
+A operator++ (Rational &a, int) {}
 ```
+
+### Typecast
+
+- darf *nur* als Instanzmethode überladen werden
+- es können Mehrdeutigkeiten entstehen, wenn mehrere Operatoren oder ein Konstruktor und ein Typecast die Umwandlung durchführen *könnten*
+  - Beispiele dazu in der VL 07/161
+
+Form: `operator TYPE () const {}`  mit TYPE als Datentyp in den umgewandelt wird
+
+Beispiel:
+
+```c++
+class A
+{
+  int i;
+  operator int () const   // Umwandlung in ein int
+  {
+    return i;
+  }
+  operator B () const     // Umwandlung in ein B
+  {
+    return B (i);         // wir nutzen den Konstruktor von B mit Parameter i
+  }
+}
+``` 
+
+### Ein- und Ausgabe-Operatoren (>>,<<)
+
