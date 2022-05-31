@@ -1210,9 +1210,9 @@ Der erste Operand ist die Instanz auf die die Instanzmethode aufgeführt wird, d
 ```c++
 class Klasse
 {
-
+	
   Klasse operator+ (const Klasse &k) {}
-}
+
 
 int main ()
 {
