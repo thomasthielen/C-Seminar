@@ -896,6 +896,37 @@ siehe VL
 
 *Sehr* gute Zusammenfassung in VL & auf cplusplus.com
 
+Auszüge:
+
+### Zugriffsrechte
+
+- `private` Zugriff *nur in der Klasse* zulässig
+- `protected` Zugriff *nur in der Klasse* UND *in allen abgeleiteten Klassen* zulässig
+- `public` Zugriff aus *allen Klassen* UND *globalen Funktionen* zulässig
+
+Einziger Unterschied zwischen `struct` und `class` ist das Defaultzugriffsrecht:
+
+- `struct` = `public`
+- `class` = `private`
+
+#### friend-Deklaration
+
+Andere Klassen und Funktionen können in einer Klasse als `friend` deklariert werden
+
+Diese erhalten damit Zugriff auf alle `private` und `protected` Attribute & Methoden der Klasse
+
+```c++
+class Konto
+{
+  friend void ausgabe (const Konto &konto); // "ausgabe" kann damit auf alle Attribute & Methoden von "Konto" zugreifen
+}
+
+void ausgabe (const Konto &konto)
+{ 
+[...] 
+}
+```
+
 ### Tutorial zu [Initialisierung von Objekten](https://cplusplus.com/doc/tutorial/classes/#uniform_initialization)
 
 ### Operatoren-Überblick
