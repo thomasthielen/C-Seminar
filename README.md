@@ -1187,8 +1187,13 @@ Auf die Variable zugreifen können wir...
 
 - benötigt keine Instanz der Klasse um aufgerufen zu werden
 - innerhalb dieser darf kein `this` benutzt werden
+- sie haben außerdem *nur* Zugriff auf `static` Klassenvariablen und dürfen *nur* `static` Klassenmethoden aufrufen
+  - umgekehrt dürfen sie aber von allen Instanzmethoden genutzt werden
 
-Die Methode aufrufen können wir...
+Die Klassenmethode aufrufen können wir...
 
 - ...über jede Instanz der Klasse: `Klasse a;` `a.getNumObjects();`
 - ...über den Scope-Operator: `Klasse::getNumObjects();`
+
+## Überladen von Operatoren
+
