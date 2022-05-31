@@ -1336,12 +1336,16 @@ class A
 ### Ein- und Ausgabe-Operatoren (>>,<<)
 
 ```c++
-std::istream &operator>> (std::istream &is, Konto &konto) // wir erhalten eine Referenz auf den instream sowie auf ein Objekt unserer Klasse
+// Eingabe: 
+// Parameter = Referenz auf instream sowie auf unser Objekt
+std::istream &operator>> (std::istream &is, Konto &konto) 
 {
   is >> konto.inhaber >> konto.kontonummer;     // den instream modifizieren
   return is;                                    // und dann ausgeben
 }
 
+// Ausgabe:
+// Parameter = Referenz auf ostream sowie auf unser CONST Objekt
 std::ostream &operator<< (std::ostream &os, const Konto &konto) // WICHTIG: const im Objekt-Parameter, da wir dieses nicht verändern
 {
   os << "Inhaber: " << konto.inhaber << "\n";
