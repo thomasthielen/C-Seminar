@@ -1201,7 +1201,9 @@ Die Klassenmethode aufrufen können wir...
 
 Durch das Überladen von Operatoren lassen sich diese auf Instanzen eigener Datentypen (Klassen) anwenden.
 
-Sie können sowohl als Instanzmethode oder als globale Funktion überladen werden, wobei in *beiden* Varianten `const Class &c` (konstante Referenzen) als Parameter übergeben werden.
+Sie können sowohl als Instanzmethode oder als globale Funktion überladen werden.
+
+Wird ein Parameter gefordert, so ist dieser immer eine `&` Referenz und - wenn der Parameter nur gelesen wird - `const`.
 
 ### Instanzmethode
 
@@ -1236,7 +1238,7 @@ int main ()
 }
 ```
 
-Deklarieren wir eine überladene Operator-Instanzmethode als `friend`, so verhält sich diese (bezüglich Parameter) wie eine globale Funktion:
+Wir können eine globale Operator-Funktion natürlich innerhalb einer Klasse als `friend` deklarieren. Darüber hinaus können wir sie auch wie folgt innerhalb der Klasse definieren, wobei dies keinen Unterschied zu der Definition auserhalb der Klasse hat:
 
 ```c++
 class A
@@ -1352,3 +1354,131 @@ std::ostream &operator<< (std::ostream &os, const Konto &konto) // WICHTIG: cons
   return os
 }
 ```
+
+# Woche 9
+
+## Callable Objects
+
+Callable Objects können als Parameter an Funktionen übergeben werden, um innerhalb dieser versch. Funktionalitäten zu erfüllen (z.B. kann man unterschiedliche `compare`-Funktionen an `qsort` übergeben).
+
+In C++ sind dies Funktionspointer, Funktoren und Lambda-Ausdrücke.
+
+### Funktionspointer
+
+Wurden zuvor schon vorgestellt: `type (*f) (parameters)` als Parameter an die Funktion und dann den Funktionsnamen (z.B. `compare`) als Argument übergeben. 
+
+Beispiel:
+
+```c++
+void sort (int x, int y, bool (*fp) (int, int))
+{
+  if (fp (x, y))
+  {
+    int t = x;
+    x = y;
+    y = t;
+  }
+}
+
+bool compare (int a, int b)
+{
+  return a >= b;
+}
+
+int main ()
+{
+  sort (7, 2, compare);
+}
+```
+
+### Funktoren
+
+= Klassen, in denen der Funktions-Operator `type operator() (parameters)` überladen wird.
+
+Der Funktions-Operator kann auch mehrfach mit jeweils unterschiedlichen Parametern überladen werden.
+
+Eine Instanz dieser Klasse kann dann wie wie ein Funktionsname zum Aufruf dieser Operatoren genutzt werden:
+
+```c++
+class Add                             // Funktor
+{
+  public:
+    int operator () (int a, int b)    // operator() wird überladen
+    {
+      return a + b;
+    }
+};
+
+int main ()
+{
+  Add add;                            // Instanz des Funktors
+  int x = add (3,5);                  // wir rufen den operator() auf die Instanz des Funktors auf
+}
+```
+
+Funktoren sind flexibler als Funktionspointer, da sie in den jeweiligen Instanzen Instanzvariablen speichern können (d.h. wir können diese auch in späteren Aufrufen der Funktor-Instanz noch verwenden).
+
+#### Ändern von externen Variablen per Funktor
+
+Um lokale Variablen in anderen Funktionen bzw. der main-Funktion innerhalb des Funktors verändern zu können, müssen wir in dessen Konstruktor eine Referenz auf diese lokale Variable übergeben:
+
+```c++
+class Mult
+{
+  private:
+    int &y;
+  public:
+    Mult (int &y) : y (y) {}
+
+    void operator () (int a)
+    {
+      y *= a;
+    }
+};
+
+int main ()
+{
+  int y = 3;
+  Mult mult (y);
+  mult (5);       // y *= 5 => y = 3 * 5 = 15
+}
+```
+
+#### Funktoren als Parameter
+
+Funktoren lassen sich wie Funktionspointer als Argument an andere Funktionen übergeben:
+
+```c++
+class Functor
+{
+  private:
+    int k;
+  public:
+    Functor (int k) : k(k) {}               // Konstruktor
+    bool operator() (int a) {return k==a;}  // überladener operator()
+}
+
+int sum (int n, Functor f)                  // Functor im Parameter
+{
+  return f(n) ? 1 : 0;                      // operator() nutzen
+}
+
+int main ()
+{
+  // Wir rufen sum() mit einer per Konstruktor neu erzeugten Instanz von Functor auf
+  cout << "Dies hat keinen wirklichen Sinn: " << sum (10, Functor (3)) << "\n";
+}
+```
+
+### Lambda-Ausdrücke
+
+= anonyme Funktion, die typischerweise direkt am Ort des Aufrufs bzw. bei der Parameterübergabe geschrieben wird.
+
+Alternativ können die Lambda-Ausdrücke auch für eine häufigere Verwendung als Objekt in der Methode/Klasse deklariert & definiert werden.
+
+Syntax: `[capture] (parameter) -> return_type {function_body}`
+
+- `[capture]`: legt fest, wie schon bestehende Variablen im Erstellungskontext an den Lambda-Ausdruck gebunden werden können:
+  -  `[]` Es wird keine Variable gebunden (Default, die "\[]" **müssen** aber geschrieben werden!
+  -  `[=]` Kopie als Standard-Zugriff auf *alle* Variablen
+  -  `[&]` Referenzen als Standard-Zugriff auf *alle* Variablen => ermöglicht Änderungen (duhhh)
