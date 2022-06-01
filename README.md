@@ -1474,11 +1474,73 @@ int main ()
 
 = anonyme Funktion, die typischerweise direkt am Ort des Aufrufs bzw. bei der Parameterübergabe geschrieben wird.
 
-Alternativ können die Lambda-Ausdrücke auch für eine häufigere Verwendung als Objekt in der Methode/Klasse deklariert & definiert werden.
+Alternativ können die Lambda-Ausdrücke auch für eine häufigere Verwendung als Variablen in der Methode/Klasse deklariert & definiert werden.
 
 Syntax: `[capture] (parameter) -> return_type {function_body}`
 
 - `[capture]`: legt fest, wie schon bestehende Variablen im Erstellungskontext an den Lambda-Ausdruck gebunden werden können:
-  -  `[]` Es wird keine Variable gebunden (Default, die "\[]" **müssen** aber geschrieben werden!
-  -  `[=]` Kopie als Standard-Zugriff auf *alle* Variablen
-  -  `[&]` Referenzen als Standard-Zugriff auf *alle* Variablen => ermöglicht Änderungen (duhhh)
+  - `[]` = Es wird keine Variable gebunden (Default, die "\[]" **müssen** aber geschrieben werden!
+  - `[=]` = Kopie als Standard-Zugriff auf *alle* Variablen
+  - `[&]` = Referenzen als Standard-Zugriff auf *alle* Variablen => ermöglicht Änderungen (duhhh)
+  - `[x]` = Kopie als Zugriff auf die Variable x
+  - `[&x]` = Referenz als Zugriff auf die Variable x => **WICHTIG**, falls sich x zw. Aufrufen des Lambda-Ausdrucks ändert
+
+Es können auch mehrere Variablen *gecaptured* werden, diese müssen dann per Komma getrennt werden: `[x, &y]`
+
+Wollen wir *alle* Variablen *bis auf z* als Referenz und z als Kopie capturen, so schreiben wir `[&, z]` (gleiches für alle anderen Fälle).
+
+- `(parameter)`: übergibt wie bei Funktionen Argumente. Alternativ zur `[capture]`-Klausel können hier auch Kopien oder Referenzen übergeben werden.
+- `-> return_type`: kann weggelassen werden, wenn der Compiler den return_type selbst ableiten kann
+
+Beispiel:
+
+```c++
+int main ()
+{
+  int x = 3, y = 5;
+
+  // 1. Variablen zur späteren Verwendung als Funktion
+
+  // Referenz auf Variablen über Parameter
+  auto swap  = [] (int &a, int &b) -> void {int t = a; a = b; b = t;};
+  swap (x, y);
+
+  // Referenz auf Variablen über capture-Klausel
+  auto print = [&] () -> void {std::cout << "x=" << x << "," << "y=" << y << "\n";};
+  print ();
+}
+
+// 2. Deklaration & Definition direkt am Ausführungsort, z.B. bei for_each
+
+template<typename T>
+void print (const std::vector<T> &container)
+{
+  for_each (container.begin (), container.end (), 
+              [] (T x) -> void {std::cout << x << " ";} ); 
+}
+
+```
+
+#### Lambda-Ausdrücke & Funktionspointer
+
+Lambda-Ausdrücke *ohne* `[capture]`-Klausel dürfen in einen Funktionspointer mit **gleichen** Parametern & **gleichen** Rückgabetyp gespeichert werden
+
+Umgekehrt (Funktionspointer in Lambda-Ausdruck speichern) ist dies *nicht* möglich.
+
+Beispiel:
+
+```c++
+bool isEven (int i)
+{
+  return i % 2 == 0;
+}
+
+int main ()
+{
+  auto lambdaEven = [] (int i) {return i % 2 == 0; }  // macht das gleiche wie die Funktion isEven()
+  bool (*fpEven) (int) = isEven;                      // Funktionspointer auf isEven
+  
+  fpEven = lambdaEven;                                // zulässig
+  lambdaEven = fpEven;                                // nicht zulässig
+}
+```
