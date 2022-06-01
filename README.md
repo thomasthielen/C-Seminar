@@ -1544,3 +1544,6 @@ int main ()
   lambdaEven = fpEven;                                // nicht zulässig
 }
 ```
+
+## Vererbung
+
