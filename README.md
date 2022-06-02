@@ -1951,6 +1951,56 @@ template<typename T, int SIZE = 10> class array {
 int main () {
   array<int,20> intArray (0); // array<int,20>
   array dblArray (0.0);       // array<double,10> (ab c++17)
+  // Compiler leitet anhand von Konstruktorparametern ab:
+  // übergebener Datentyp ist double, Default-Wert für SIZE ist 0
 }
 ```
 
+#### Vererbung bei Template-Klassen
+
+- Vererbung zwischen 2 Template-Klassen
+  - zulässig, falls die Template-Parameter gleich sind
+
+```c++
+template<typename T> class Super {
+  public: 
+    Super (T t) {}
+};
+template<typename T> class Sub : public Super<T> {
+  public: 
+    Sub (T t) : Super<T> (t) {}
+};
+```
+
+- Vererbung von Template-Klasse an "normale" Klasse
+  - zulässig, wenn Template-Parameter explizit angegeben wird
+
+```c++
+class SubInt : public Super<int> {    // Hier: Template-Parameter = int
+  public: 
+    SubInt () : Super<int> (0) {}
+};
+```
+
+### Variadic Templates
+
+= Klassentemplates / Funktionstemplates mit einer variablen Anzahl an Typ-Parametern 
+
+Beispiel:
+
+```c++
+template<typename T> double sum (T v) {
+  return v;
+}
+template<> double sum (const char *p) {
+  return std::stod (p);
+}
+template<typename T, typename... Ts>    // variable Anzahl an Typ-Parametern
+  double sum (T v, Ts... rest) {
+  return sum (v) + sum (rest...);
+}
+int main () {
+  std::cout << sum (1.2) << "\n";             
+  std::cout << sum (1.2, "12", 42) << "\n";
+}
+```
