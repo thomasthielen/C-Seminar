@@ -1669,3 +1669,25 @@ int main ()
   b2 = a1;    // Umwandlung mit Typecast
 }
 ```
+
+## Virtuelle Methoden
+
+Zusammenfassung siehe VL
+
+### Short summary:
+
+`virtual` entspricht in etwa "abstract" aus Java, aber ich erkläre das nochmal genauer:
+
+Wenn wir mit einem Pointer/einer Referenz einer Oberklasse auf eine Instanz einer Unterklasse arbeiten, 
+
+- also `Basisklasse *r1 = Unterklasse`
+- oder `Basisklasse &r2 = Unterklasse`
+
+und auf diesen Pointer/Referenz dann eine Methode aufrufen, die namensgleich sowohl in Oberklasse als auch in Unterklasse existiert, so entscheidet sich am keyword `virtual` in der Methode der Oberklasse, ob diese selbst oder eben die Methode aus der Unterklasse aufgerufen wird!
+
+=> Wenn die Methode der Oberklasse `virtual` deklariert wurde, so arbeiten wir mit der Methode der Unterklasse
+
+=> Andernfalls nennt man die Methode der Oberklasse "statisch" und *diese* wird ausgeführt!
+
+# Woche 10
+
