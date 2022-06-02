@@ -1829,3 +1829,39 @@ Blockweise lesen und schreiben:
   - Der Ruckgabewert ist die Anzahl der Bl ¨ ¨ocke die gelesen bzw. geschrieben wurden.
 
 ## C++ Streams
+
+Vergleich zu C Streams:
+
+- strengere Typ-Prüfung
+- flexibel und erweiterbar
+- unterstützen Exceptions
+
+### Formatierung von istream & ostream
+
+Die Ein- & Ausgabe über die Shift-Operatoren << und >> kann mit Hilfe von [flags](https://www.cplusplus.com/reference/ios/) formatiert werden.
+
+Beispiel:
+
+```c++
+int n = -77;
+cout.width(6);              // Breite MUSS für left/right gesetzt sein!
+cout << right << n << '\n';  
+```
+
+Mehrere Flags "sammeln" sich bis zum nächsten Element das ausgegeben werden soll.
+
+`width` wird z.B. direkt nach der Anwendung auf ein Element zurückgesetzt.
+
+### Manipulatoren 
+
+Die Formatierung der Ein- und Ausgabe kann auch mit Hilfe von Manipulatoren erfolgen.
+
+Manipulator = Funktionspointer / Instanz einer Klasse, der/die direkt mit den Ein-/Ausgabeoperatoren in den Stream geschrieben werden.
+
+*MISSING*: **Eigene Manipulatoren**
+
+### File-Streams
+
+[Tutorial auf cplusplus.com](https://cplusplus.com/doc/tutorial/files/)
+
+# Woche 12
