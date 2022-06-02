@@ -1547,3 +1547,125 @@ int main ()
 
 ## Vererbung
 
+= eine Klasse wird von einer Oberklasse abgeleitet und übernimmt dadurch automatisch alle Attribute & Methoden der Oberklasse
+
+```c++
+class Subclass : public Superclass
+{
+}
+```
+
+Mit dem Spezifizierer `public` und seinen Alternativen können die Zugriffsrechte auf die geerbten Attribute und Methoden eingeschränkt werden:
+
+- `public`: gleiche Zugriffsrechte wie in Oberklasse
+- `protected`: public -> protected, private bleibt gleich
+- `private`: public & protected -> private
+
+### Konstruktor- & Destruktor-Aufruf
+
+Es ist immer schlauer Attribute der Oberklasse, die von dessen Konstruktor gesetzt werden, auch über diesen zu setzen, da sonst (unnötigerweise) das Attribut erst über dessen Default-Konstrukto gesetzt wird.
+
+```c++
+class Person
+{
+  protected: 
+    string name;
+  public:
+    Person () {}
+    Person (string name) : name(name) {}
+}
+
+class Mitarbeiter
+{
+  private:
+    double gehalt;
+  public:
+    // Konstruktoraufruf von Person mit name als Argument
+    Mitarbeiter (string name, int gehalt) : Person (name), gehalt (gehalt) {}
+}
+```
+
+Fehlt ein solcher expliziter Aufruf des Konstruktors der Oberklasse in der Initialisierungsliste, so wird automatisch der Default-Konstruktor der Oberklasse aufgerufen.
+
+#### Reihenfolge
+
+- **Konstruktor:** Oberklasse -> Unterklasse
+- **Destruktor:** Unterklasse -> Oberklasse
+
+### Überschreiben von Methoden
+
+Methoden der Oberklasse werden durch *gleichnamige* Methoden der Unterklasse **verdeckt**.
+
+- verdeckte Methoden lassen sich explizit über den Bereichsoperator `::` ausführen: `Person::get()`
+- mit `using` lassen sich...
+  - verdeckte Methoden sichtbar machen
+
+```c++
+class Mitarbeiter : public Person
+{
+  using Person::get;    // Person::get wird eigentlich von double get (double d) verdeckt, hiermit aber sichtbar gemacht
+  double get (double wechselkurs) {return wechselkurs * gehalt;}
+  // ACHTUNG: Sollten beide Parametergleich sein, so erhalten wir natürlich einen ambiguity error!
+}
+```
+
+  - Zugriffsrechte in der Unterklasse ändern
+
+```c++
+class Mitarbeiter : public Person
+{
+  private:
+    Person::name;   // name war in Person (und damit auch in Mitarbeiter) eigentlich protected,
+                    // jetzt ist es _in Mitarbeiter_ private
+}
+```
+
+### Typumwandlung zwischen Ober- und Unterklasse
+
+#### Typumwandlung für Instanzen
+
+- Unterklasse -> Oberklasse (`Unterklasse u; Oberklasse o = u;`)
+  - zulässig, Copy-Konstrukto der Oberklasse wird ausgeführt
+- Oberklasse -> Unterklasse (`Oberklasse o; Unterklasse u = o;`)
+  - **nur** zulässig, falls die Unterklasse einen Konstruktor mit der Oberklasse als Parameter besitzt **ODER** der Typecast-Operator der Oberklasse überladen wurde
+
+#### Typumwandlung für Pointer & Referenzen
+
+Mut zur Lücke oder so
+
+Beispiel:
+
+```c++
+class B;                                  // Typecast: Forward Deklaration notwendig
+
+class A {
+  private:
+    int x;
+  public:
+    A (int x) : x (x) {}
+    int getX () const {return x;}
+    operator B ();                        // Typecast: Nur Deklaration möglich
+};
+
+class B : public A {
+  private:
+    int y;
+  public:
+    B (int x, int y) : A (x), y (y) {}
+    B (const A &a) : A (a), y (0) {}      // Konstruktor zur Umwandlung
+    int getY () const {return y;}
+};
+
+A::operator B () {                        // Typecast: Definition zur Umwandlung
+    return B (x, 0);
+}
+
+int main ()
+{
+  A a1 (1);
+  B b1 (2, 3);
+  A a2 (b1);  // implizite Umwandlung
+  B b2 (a1);  // Umwandlung mit Konstruktor
+  b2 = a1;    // Umwandlung mit Typecast
+}
+```
