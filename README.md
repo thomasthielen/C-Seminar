@@ -1758,3 +1758,74 @@ Funktoren können wie gewöhnliche Klassen vererbt und ihre Funktionsoperatoren 
 Diese können dann in abgeleiteten Klassen verschieden implementiert werden.
 
 # Woche 11
+
+## C Streams
+
+[Reference auf cplusplus.com](https://cplusplus.com/reference/cstdio/)
+
+In der Standardbibliothek gibt es zwei Ebenen an Funktionen für den Zugriff auf Dateien & Streams:
+
+- Low-Level-Ebene: 	Zugriff erfolgt direkt & synchron
+- **High-Level-Ebene**: Zugriff erfolgt asynchron über einen Puffer
+
+### Datei öffnen & schließen
+
+`FILE *fopen (const char *path_name, const char *modus)`
+
+Öffnet die Datei am gegebenen Pfad im genannten Modus und liefert einen FILE \*Pointer.
+
+Der Modus legt die Zugriffsart fest, hier eine Auswahl:
+
+- "r" = Lesezugriff
+- "w" = Schreibzugriff
+- "b" = Binärdatei, "wb" schreibt also in eine Binärdatei
+
+Im Falle eines Fehlers (z.B. invald path) wird anstatt eines FILE \*Pointers ein `nullptr` zurückgegeben - deshalb **müssen** wir einen Fehlerabfang einbauen!
+
+`int fclose (FILE *file)`
+
+Schließt den Stream des FILE \*Pointers. Gibt `0` im Erfolgsfall und `EOF` bei einem Fehler zurück.
+
+Beispiel:
+
+```c++
+  const char *filename = "...";
+  FILE *fp = fopen (filename, "w");   // Schreibzugriff
+
+  if (fp != nullptr)    // Fehlerabfang
+  {
+    // [...]            // ARBEITEN MIT DEM STREAM
+    fclose (fp);
+  }
+```
+
+### Stream schreiben / lesen
+
+Alle folgenden Funktionen sind auf cplusplus.com genauer (und mit Beispielen) erläutert)
+
+Formatierte Ein- und Ausgabe:
+
+- `int fprintf (FILE *file, const char *format, ...);`
+- `int fscanf (FILE *file, const char *format, ...);`
+
+  - Der Aufbau des Formatstrings entspricht den Funktionen printf und scanf.
+
+Ein- und Ausgabe von ASCII-Zeichen:
+
+- `int fgetc (FILE *file);`
+- `int fputc (int c, FILE *file);`
+
+Ein- und Ausgabe von Strings:
+
+- `int fgets (char *buffer, int size, FILE *file);`
+- `int fputs (const char *buffer, FILE *file);`
+
+  - fgets liest die Zeichen vom Stream bis zum ersten Zeilenendezeichen, jedoch max. size-1 Zeichen und speichert diese zusammen mit dem Zeilenendezeichen im char-Buffer.
+
+Blockweise lesen und schreiben:
+
+- `size_t fread (void *p, size_t size, size_t num, FILE *fp);`
+- `size_t fwrite (const void *p, size_t size, size_t num, FILE *fp);`
+  - Der Ruckgabewert ist die Anzahl der Bl ¨ ¨ocke die gelesen bzw. geschrieben wurden.
+
+## C++ Streams
