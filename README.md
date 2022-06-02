@@ -2004,3 +2004,80 @@ int main () {
   std::cout << sum (1.2, "12", 42) << "\n";
 }
 ```
+
+# Woche 13
+
+## Standard Template Library (STL)
+
+= Bibliothek mit verschiedenen Containerklassen und Algorithmen für Container.
+
+- diese sind alle als Templates realisiert, z.B. `vector<int>`
+- für geordnete Container *muss* der `operator<` der Klasse überladen sein!
+
+[Übersicht über die verschiedenen Container](http://cplusplus.com/reference/stl/)
+
+### Iteratoren
+
+Die interne Speicherung innerhalb der versch. Containerklassen ist unterschiedlich, weshalb wir Iteratoren zum Durchlaufen von Containern nutzen können:
+
+Es gibt die folgenden Methoden bei *allen* Containern, um einen Iterator zu erhalten:
+
+- `.begin()` liefert einen Iterator der auf das **1. Element** des Containers zeigt
+- `.end()` liefert einen Iterator der auf die Position **nach dem letzten Element** des Containers zeigt
+- `.cbegin()` / `.cend()` liefert jeweils einen `const` Iterator (dieser kann die Element des Containers **nicht** verändern
+
+Wir können wie folgt durch einen Container iterieren:
+
+```c++
+// mit while
+  vector<int> v;
+  auto it = v.begin ();   // Iterator auf das 1. Element
+  while (it != end ())    // solange das Ende (also das ELement _nach_ dem letzten Element) erreicht wurde
+  {
+    int x = *it;          // mit dem (dereferenzierten 
+    it++;                 // Iterator auf das nächste Element setzen (it += 4 würde z.B. auch gehen)
+  }
+
+// mit for
+  for (auto it = v.begin(); it != v.end(); ++it)
+    int x = *it;
+```
+
+Sobald wir für eine Klasse `begin()` und `end()` definiert haben können wir auch range-based loops verwenden: `for (char c : string)`
+
+### std::initializer_list
+
+Die meisten Container besitzen einen Konstruktor mit einem Parameter vom Typ `std::initializer_list`
+
+Beim Erzeugen eines Containers mit einer Initialisierungsliste, also z.B. `vector<int> v {1,2,3,4}`, wird **vorrangig** der Konstruktor mit dem Parameter vom Typ `std::initializer_list` ausgeführt.
+
+Beispiel für eine eigene Container-Klasse mit einem solchen Container:
+
+```c++
+int *array;
+IntArray (const std::initializer_list<int> &list) : array (new int [list.size ()])
+  {
+    std::copy (list.begin (), list.end (), array);
+  }
+```
+
+### Übersicht über die wichtigsten Container in VL 10
+
+### Algorithmen
+
+Die STL enthält verschiedene Template-Funktionen für Standard-Anwendungen wie Sortieren, Suchen, Prüfen, Zählen, Kopieren etc.
+
+[Übersicht](http://cplusplus.com/reference/algorithm/)
+
+Die Funktionen arbeiten auf einem Bereich \[first,last) (z.B. `(v.begin(), v.end())`) zwischen zwei Iterator-Positionen first und last und können sowohl für C-Arrays `int array [4]` als auch C++-Container eingesetzt werden. 
+
+Viele Funktionen besitzen zusätzliche Prädikate (*Callable Objects*, also Funktionspointer/Funktoren/Lamdba-Ausdrücke) als Paramater.
+
+#### Auswahl
+
+`vector<int> v {4,7,2,9};` `vector<int> w {}`
+
+- `sort (v.begin(), v.end())` 
+- `copy_if (v.begin(), v.end(), w.begin(), compare)`
+- `count_if (v.begin(), v.end(), compare)`
+- `for_each (v.begin(), v.end(), function)`
