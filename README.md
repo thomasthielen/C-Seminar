@@ -1691,3 +1691,9 @@ und auf diesen Pointer/Referenz dann eine Methode aufrufen, die namensgleich sow
 
 # Woche 10
 
+## Abstrakte Klassen
+
+"rein virtuelle Methode" = virtuelle Methode *ohne* Implementierung
+
+- Klassen, die mind. eine rein virtuelle Methode besitzen (es müssen nicht *alle* Methoden rein virtuell sein) heißen **abstrakt** und *dürfen nicht* instanziiert werden.
+- Eine abstrakte Klasse kann an eine andere Klasse vererbt werden. Die Unterklasse ist *ebenfalls* **abstrakt**, falls nicht *alle* rein virtuellen Methoden implementiert werden.
