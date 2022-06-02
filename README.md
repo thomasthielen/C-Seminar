@@ -1693,7 +1693,27 @@ und auf diesen Pointer/Referenz dann eine Methode aufrufen, die namensgleich sow
 
 ## Abstrakte Klassen
 
-"rein virtuelle Methode" = virtuelle Methode *ohne* Implementierung
+"rein virtuelle Methode" = virtuelle Methode *ohne* Implementierung `virtual return_type f () = 0`
 
 - Klassen, die mind. eine rein virtuelle Methode besitzen (es müssen nicht *alle* Methoden rein virtuell sein) heißen **abstrakt** und *dürfen nicht* instanziiert werden.
 - Eine abstrakte Klasse kann an eine andere Klasse vererbt werden. Die Unterklasse ist *ebenfalls* **abstrakt**, falls nicht *alle* rein virtuellen Methoden implementiert werden.
+
+Beispiel:
+
+```c++
+class A {
+  public: 
+    virtual void f () = 0;    // rein virtuelle Methode
+};
+
+class B : public A {
+  public: 
+    void f () {}              // B ist nicht abstrakt
+    // f() könnte auch virtual sein, hauptsache sie ist implementiert
+};
+
+int main () {
+  A a;    // nicht zulaessig, A ist abstrakt
+  B b;    // zulaessig, Unterklasse ist nicht abstrakt
+}
+```
