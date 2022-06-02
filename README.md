@@ -1865,3 +1865,92 @@ Manipulator = Funktionspointer / Instanz einer Klasse, der/die direkt mit den Ei
 [Tutorial auf cplusplus.com](https://cplusplus.com/doc/tutorial/files/)
 
 # Woche 12
+
+## Templates
+
+Generische Programmierung = Programmierung mit Datentypen als Parameter
+
+=> ermöglicht die Wiederverwendbarkeit von Programmcode ohne Vererbungsmechanismen.
+
+### Funktionstemplates
+
+[Tutorial](https://www.cplusplus.com/doc/tutorial/functions2/#templates)
+
+= globale Funktion für generische Datentypen
+
+- Templateparameter = Variablen / ganzzahlige Werte, die sich als `constexpr` ableiten lassen könnten.
+- Default-Werte sind für diese zulässig
+
+Beispiel: 
+
+```c++
+template <typename T, int ADD = 0>   // ADD ist ein Templateparameter mit Default-Wert 0
+T sum (T a, T b)
+{
+  T result;
+  result = a + b + ADD;
+  return result;
+}
+
+int main ()
+{
+  int c = sum<int,3> (2,5);   // = 2 + 5 + 3 = 10
+}
+```
+
+Werden mehrere `typename` angegeben, so bezieht sich der 1. `typename` auf den 1. Parameter, der 2. auf den 2. usw. 
+
+#### Automatische Typableitung
+
+Für fehlende Templateparameter im Aufruf eines Funktionstemplates führt der Compiler ein automatische Typableitung durch.
+
+- falls die Ableitung nicht klappt (z.B. weil der Datentyp nicht eindeutig ist) wirft der Compiler einen Error
+- der Rückgabewert spielt bei der Auswahl keine Rolle
+  - dafür achtet der Compiler darauf, dass möglichst wenige `typename` benötigt werden
+
+#### Spezialisierungen
+
+In einer Spezialisierung eines Funktionstemplates werden ein oder mehrere Typvariablen durch konkrete Datentypen ersetzt.
+
+Beispiel:
+
+```c++
+template <typename T1, typename T2> T1 add  (T1 v1, T2 v2)     {return v1 + v2;}
+// Spezialisierungen von der 1. add Funktion
+template <typename T1>              T1 add  (T1 v1, int v2)    {return v1 + v2;}    // T2 durch int ersetzt
+template <typename T2>              T2 add  (double v1, T2 v2) {return v1 + v2;}    // T1 durch double ersetzt
+// Spezialisierung von der 2. / 3. add Funktion
+template <>                         int add (int v1, int v2)   {return v1 + v2;}    // T2 in der Rückgabe durch int ersetzt
+```
+
+Der Compiler wählt aus allen zulässigen Spezialisierungen die spezifischste Variante.
+
+Dabei kann es auch zu Mehrdeutigkeiten mit `runtime error` kommen!
+
+### Klassentemplates
+
+[Tutorial](https://www.cplusplus.com/doc/tutorial/templates/#class_templates)
+
+Template-Parameter: gleiche Regeln wie für Funktionstemplates.
+
+Seit C++17 ist eine automatische Typableitung anhand der Parameter des Konstruktors möglich.
+
+Beispiel: 
+
+```c++
+template<typename T, int SIZE = 10> class array {
+  private: 
+    T a [SIZE];
+  public:
+    array (T init) {    // Konstruktor
+      for (int i = 0; i < SIZE; i++) a[i] = init;
+    }
+    T &operator [] (int index) {return a[index];}
+};
+
+int main () {
+  array<int,20> intArray (0); // array<int,20>
+  array dblArray (0.0);       // array<double,10> (ab c++17)
+}
+```
+
