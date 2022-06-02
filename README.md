@@ -1717,3 +1717,44 @@ int main () {
   B b;    // zulaessig, Unterklasse ist nicht abstrakt
 }
 ```
+
+## Mehrfachvererbung
+
+Eine Klasse kann mehrere direkte Oberklassen haben (im Gegensatz zu Java).
+
+Syntax:
+
+```c++
+class Subclass : public Superclass_1, ..., protected Superclass_N
+{
+}
+```
+
+Beispiele dazu siehe VL 08
+
+### Probleme:
+
+- Mehrdeutigkeit durch gleichnamige Objekte in verschiedenen Oberklassen
+  - dies lässt sich auch *nicht* durch `::` oder eine Typumwandlung lösen 
+- Eine Klasse kann eine Oberklasse *mehrfach* erben
+  - problematisch, da - falls die Klasse C z.B. A & B erbt, aber B auch von A erbt - C eine Variable von A nutzen will, diese aber von der Variable in B (die auch durch A ererbt wurde) verdeckt wird
+
+### Lösung über virtuelle Basisklassen
+
+Wir können Basisklassen selbst auch über `class Subclass : virtual public Superclass` virtuell vererben, um Mehrfachvererbung zu vermeiden (beim Beispiel oben: A virtuell an B vererben => C erbt A nur einmal).
+
+## C++ Typecasts
+
+[Ausführliches Tutorial auf cplusplus.com](https://cplusplus.com/doc/tutorial/typecasting/#type_casting)
+
+Der C-Typecast-Operator `operator type ()` ist sehr weitreichend, aber häufig problematisch (runtime errors).
+
+Es gibt deshalb in C++ vier weitere Cast-Operatoren, die eine bessere Kontrolle über die Typumwandlung ermöglichen.
+
+## Vererbung bei Funktoren
+
+Funktoren können wie gewöhnliche Klassen vererbt und ihre Funktionsoperatoren `return_type operator() (parameters)` als (rein-) virtuelle Methoden definiert werden. 
+
+Diese können dann in abgeleiteten Klassen verschieden implementiert werden.
+
+# Woche 11
